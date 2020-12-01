@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React from "react";
+import { Route } from "react-router-dom";
+import { NavDropdown, Nav, Button, Navbar } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+export const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#home" className="mx-2">
+              Jobs
+            </Nav.Link>
+            <Nav.Link href="#link">Companies</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Route component={Jobs} />
+      <Route component={Companies} />
+      <Route component={Auth} />
     </div>
   );
-}
+};
 
 export default App;
