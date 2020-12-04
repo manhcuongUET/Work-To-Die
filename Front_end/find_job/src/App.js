@@ -1,8 +1,7 @@
-import logo from "./logo.svg";
-import "./App.css";
 import React from "react";
+import "./App.css";
 import { Route } from "react-router-dom";
-import { NavDropdown, Nav, Button, Navbar } from "react-bootstrap";
+import { Nav, Button, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const App = () => {
@@ -12,17 +11,20 @@ export const App = () => {
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav>
             <Nav.Link href="#home" className="mx-2">
               Jobs
             </Nav.Link>
             <Nav.Link href="#link">Companies</Nav.Link>
+            <Nav.Link href="#link" >SIGN UP</Nav.Link>
+            <Nav.Link href="#link">SIGN IN</Nav.Link>
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Route component={Jobs} />
+      {/* <Route component={Jobs} />
       <Route component={Companies} />
-      <Route component={Auth} />
+      <Route component={Auth} /> */}
     </div>
   );
 };
