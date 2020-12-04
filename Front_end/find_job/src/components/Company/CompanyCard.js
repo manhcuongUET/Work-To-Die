@@ -20,7 +20,7 @@ export const CompanyCard = (props) => {
           <img src={imgUrl} className="imgUrl" />
           <div className="flex-grow-1 pl-2">
             <div className="d-flex">
-              <div className="name ">{name}</div>
+              <div className="name">{name}</div>
               <div className="mx-1 ">
                 <FontAwesomeIcon  icon={faBookmark} />
               </div>

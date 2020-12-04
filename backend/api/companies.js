@@ -1,10 +1,13 @@
-const express = require("express")
-const router = express.Router()
-const CompaniesService = require("../services/companies")
+const express = require("express");
+const router = express.Router();
+const CompaniesService = require("../services/companies");
 
-router.get("/", async (req, res) =>{
-    const allCompanies= await CompaniesService.getAllCompanies()
-    res.send(allCompanies)
-})
+router.get("/", async (req, res) => {
+  console.log(req.query);
 
-module.exports = router
+    const companies = await CompaniesService.getCompanies(req.query);
+    res.json(companies);
+  
+});
+
+module.exports = router;

@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { Route, useHistory, Link } from "react-router-dom";
 import { Nav, Navbar,Container ,Row} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,10 +23,10 @@ export const App = () => {
               <Nav.Link as={Link} to="/companies" className="mx-1">
                 Companies
               </Nav.Link>
-              <Nav.Link as={Link} to="/companies" className="mx-1">
+              <Nav.Link as={Link} to="/auth/sign-up" className="mx-1">
                 SIGN IN
               </Nav.Link>
-              <Nav.Link as={Link} to="/companies" className="mx-1">
+              <Nav.Link as={Link} to="/auth/sign-in" className="mx-1">
                 SIGN UP
               </Nav.Link>
             </Nav>
