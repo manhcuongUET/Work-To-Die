@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { Card, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const SignIn = () => {
+  const [values, setValues] = useState({
+    username: "",
+    password: "",
+  });
+  const [err, setErr] = useState(null);
+  const handleChanges = (event) =>{
+    setValues({
+      ...values,
+      [values.target.name]: event.target.values
+    })
+  }
+  // const handleSubmit = (event) =>{
+  //   event.preventDefault;
+  //   return;
+  // }
+
+
   return (
-    <Modal.Dialog>
-      <Modal.Header closeButton>
-        <Modal.Title>Sign in</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
+    <Card className="mt-5">
+      <Card.Header>SIGN IN</Card.Header>
+      <Card.Body>
+        <Form >
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Enter username ..." />
+            <Form.Control type="text" placeholder="Enter username ..."  />
           </Form.Group>
           <Form.Group controlId="formPassword">
             <Form.Label>Password</Form.Label>
@@ -28,7 +45,7 @@ export const SignIn = () => {
             Don't have account? <Link to="/auth/sign-up">Sign up</Link> now
           </p>
         </Form>
-      </Modal.Body>
-    </Modal.Dialog>
+      </Card.Body>
+    </Card>
   );
 };
