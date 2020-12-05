@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
-import { Route } from "react-router-dom";
+import {Route} from "react-router-dom"
 import { NavDropdown, Nav, Button, Navbar } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { findingJob } from "./components/jobs/Jobs"
+import {JobDetail} from "./components/jobs/JobDetail"
 
 export const App = () => {
   return (
@@ -20,10 +21,10 @@ export const App = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Route component={Jobs} />
-      <Route component={Companies} />
-      <Route component={Auth} />
+      <Route path="/Jobs" component={findingJob} /> 
+      <Route  path = "/JobDetail" component = {JobDetail}/>
     </div>
+    
   );
 };
 

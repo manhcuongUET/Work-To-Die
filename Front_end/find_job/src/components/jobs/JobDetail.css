@@ -1,0 +1,93 @@
+.mainPage {
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-top: 40px;
+}
+.mainJob {
+    width: 70%;
+    text-align: left;
+}
+.mainJob hr {   
+    margin-top: 30px;
+    margin-right: 50px;
+}
+.similarJob {
+    flex-grow: 1;
+    text-align: left;
+}
+.logoCompany {
+    width: 80px;
+}
+.jobShowing {
+    flex-grow: 1;
+   
+}
+.logoCompany .logoo {
+    max-width: 70px;
+}
+.jobInfo .position {
+    font-weight: 900;
+    font-size: 19px;
+}
+.nameAndLocation {
+    padding-top: 7px;
+}
+.nameAndLocation .companyName {
+    color: rgb(1, 126, 183);    
+    margin-right: 30px;
+}
+.nameAndLocation li {
+    color: gray;
+}
+.department {
+    margin-top: 9px;
+    font-weight: 600;
+    position: relative;
+}
+.department .place {
+    position: absolute;
+    padding-left: 25px;
+}
+
+.buidling {
+    color: gray;
+    margin-right: 10px;
+}
+.jobShowing .type {
+    margin-top: 9px;
+    font-weight: 600;
+    position: relative;
+}
+.type .timing {
+    position: absolute;
+    padding-left: 25px;
+}
+.jobShowing .experience {
+    margin-top: 9px;
+    font-weight: 600;
+    position: relative;
+}
+.salary .money {
+    position: absolute;
+    padding-left: 25px;
+}
+.jobShowing .salary {
+    margin-top: 9px;
+    font-weight: 600;
+}
+.jobShowing .postedTime {
+    margin-top: 18px;
+    font-size: 14px;
+}
+.experience .yearsExperience {
+    position: absolute;
+    padding-left: 25px;
+}
+.similarJob .similarTitle {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+.similarJob .item {
+    margin-bottom: 20px;
+}

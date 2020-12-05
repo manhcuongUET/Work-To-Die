@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
+* {
+  font-family: 'Poppins', sans-serif;
+}
+.lookingJob {
+  height: 60px;
+}
+.jobInput {
+  border-top: 2.5px solid rgb(119, 119, 119) !important;
+  border-left: 2.5px solid rgb(119, 119, 119) !important;
+  border-bottom: 2.5px solid rgb(119, 119, 119) !important;
+  border-radius: 0.25rem !important;
+}
+.lookingJob-button {
+  width: 100px;
+  height: 65.5px;
+  background: rgb(1, 126, 183)!important;
+}
+.filterGroup {
+  display: flex;
+  justify-content: space-around;
+}
+
+.filter {
+  margin-top: -15px;
+  width: 56.5%;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.filterWrap {
+  width: 56.5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.filterList {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+}
+.filterDetail {
+  width: 140px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.filterTitle {
+  margin-right: 50px;
+}
+.filterName {
+  margin: 5px;
+  padding: 7px 23px;
+  display: inline-flex;
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  background: rgb(238, 238, 238);
+  border-color: rgb(198, 198, 198);
+}
+.closeFont {
+  padding-left: 10px;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  cursor: pointer;
+}
+.filterFont {
+  width: 40%;
+  height: 40%;
+}
+.filterTitle {
+ margin: auto;
+}
+.showTitle {
+  justify-content: space-between;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 40px;
+}
+.jobNumber {
+  font-weight: bold;
+  font-size: 18px;
+}
+.coll {
+  display: flex;
+  justify-content: space-around;
+}
+.containerr {
+  padding-left: 9.5%;
+  padding-right: 9.5%;
+}
+.roww {
+  padding-bottom: 40px;
+}
