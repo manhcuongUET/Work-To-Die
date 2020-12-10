@@ -9,6 +9,10 @@ import { CompanyInfo } from "./components/Company/CompanyInfo";
 import "../src/css/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-solid-svg-icons";
+import { Jobs } from "./components/jobs/Jobs";
+import { JobDetail } from "./components/jobs/JobDetail";
+import { FillUpForm } from "./components/Resume/FillUpForm";
+import { Profile } from "./components/InvidualProfile/Profile";
 
 export const App = () => {
   const history = useHistory();
@@ -24,7 +28,7 @@ export const App = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/jobs" className="mx-1">
+              <Nav.Link as={Link} to="/Profile" className="mx-1">
                 Jobs
               </Nav.Link>
               <Nav.Link as={Link} to="/companies" className="mx-1">
@@ -50,6 +54,10 @@ export const App = () => {
           <Route exact path="/companies" component={Companies} />
           <Route path="/companies/info" component={CompanyInfo} />
         </CompanyCtx.Provider>
+        <Route path="/Jobs" component={Jobs} />
+        <Route path="/JobDetail" component={JobDetail} />
+        <Route path="/ResumeForm" component={FillUpForm} />
+        <Route path="/Profile" component={Profile} />
       </>
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>

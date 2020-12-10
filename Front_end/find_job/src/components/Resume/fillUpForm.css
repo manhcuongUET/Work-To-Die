@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
+* {
+  font-family: 'Poppins', sans-serif!important;
+}
+.title {
+    font-size: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+}
+.underTitle {
+    margin-bottom: 40px;
+    font-size: 13px;
+}
+.inputTag {
+  word-wrap: break-word;
+  word-break: break-all;
+  height: 107px;
+  width: 100%;
+  margin-top: 33px;
+}
+.inputTagg {
+  word-wrap: break-word;
+  word-break: break-all;
+  height: 107px;
+  width: 100%;
+}

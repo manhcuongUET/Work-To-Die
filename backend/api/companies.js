@@ -3,7 +3,7 @@ const router = express.Router();
 const CompaniesService = require("../services/companies");
 
 router.get("/", async (req, res) => {
-  console.log(req.query);
+    console.log(req.query);
 
     const result = await CompaniesService.getCompanies(req.query);
     res.json(result);
