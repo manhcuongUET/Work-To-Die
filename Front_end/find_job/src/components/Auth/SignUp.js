@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Card, Button } from "react-bootstrap";
+import { Form, Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const SignUp = () => {
@@ -19,15 +19,17 @@ export const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(values);
-    // if (values.confirmPassword !== values.password) {
-    //   setErr("Confirm Password not matched!");
-    // }
-    // return;
+    setErr(null)
+    if (values.confirmPassword !== values.password) {
+      setErr("Confirm Password not matched!");
+    }
+    return;
   };
   return (
     <Card className="mt-5">
       <Card.Header>Sign up</Card.Header>
       <Card.Body>
+      {err ? <Alert variant="danger">{err}</Alert>: null}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>

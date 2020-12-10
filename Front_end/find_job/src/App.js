@@ -8,6 +8,11 @@ import Auth from "./components/Auth";
 
 export const App = () => {
   const history = useHistory();
+  
+  const handleSignInClick = () => {
+    history.push("/auth/sign-in")
+  }
+  
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
