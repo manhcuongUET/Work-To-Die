@@ -1,8 +1,8 @@
 const db = require("./index")
 
-exports.getAllCompanies = async () =>{
-    const allCompanies= db.companies.find({}).toArray()
-    return allCompanies
+exports.getCompanies = async () =>{
+    const companies= db.companies.find({}).toArray()
+    return companies
 }
 
 exports.createCompany=() =>{}

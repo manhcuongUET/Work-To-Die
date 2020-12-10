@@ -4,40 +4,48 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { CompanyCard } from "./CompanyCard";
 import Select from "react-select";
 import { RadioButton } from "../../share/RadioButton";
-import axiosInstance from "../../utils/axios"
+import axiosInstance from "../../utils/axios";
 
- // const [companies, setCompanies] = useState([
-  //   {
-  //     imgUrl: "",
-  //     name: "",
-  //     location: "",
-  //     activeJobs: "",
-  //   },
-  // ]);
+// const [companies, setCompanies] = useState([
+//   {
+//     imgUrl: "",
+//     name: "",
+//     location: "",
+//     activeJobs: "",
+//   },
+// ]);
 
-  const options = [
-    { label: "react", value: "react" },
-    { label: "react-native", value: "react-native" },
-    { label: "css", value: "css" },
-  ];
 
 export const Companies = () => {
-  useEffect(()=>{
-    console.log("didmount");
-    axiosInstance.get("/companies")
-  },[])
+  const [companies, setCompanies] = useState([])
+  const options= companies.map((company) =>{
+    return {label: company.name, value: company._id}
+  })
 
+  useEffect(() => {
+    axiosInstance.get("/companies").then((res) =>{
+        console.log(res.data);
+        setCompanies(res.data)
+    })
+    axiosInstance.get("/companies?limit=10").then((res) =>{
+      console.log(res.data);
+  })
+    
+  }, []);
 
-  const onChangeSeclect=(value) => {
+  const onChangeSeclect = (value) => {
     console.log(value);
-  }
+  };
 
   return (
     <Container>
       <Col lg={{ span: 8, offset: 2 }} md={{ span: 12, offset: 0 }}>
-        <Select options={options} placeholder="Company..." onChange={onChangeSeclect}/>
-        <div className="d-flex">
-        </div>
+        <Select
+          options={options}
+          placeholder="Company..."
+          onChange={onChangeSeclect}
+        />
+        <div className="d-flex"></div>
       </Col>
       <Row>
         <CompanyCard
@@ -53,7 +61,7 @@ export const Companies = () => {
           location="Ha noi, Viet Nam"
           activeJob="2"
         />
-        <CompanyCard name="test"/>
+        <CompanyCard name="test" />
         <CompanyCard />
         <CompanyCard />
       </Row>

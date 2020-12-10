@@ -1,7 +1,14 @@
 const CompanyRepo = require("../repositories/company")
+const _ = require("lodash")
 
-module.exports.getAllCompanies = async ()=>{
-   const allCompanies = await CompanyRepo.getAllCompanies() 
-   console.log(allCompanies);
-   return allCompanies
+module.exports.getCompanies = async (query)=>{
+   if(_.isEmpty(query)){
+      const companies = await CompanyRepo.getCompanies() 
+      console.log(companies);
+      return companies
+    } 
+    //else {
+   //    //const companiesPage = await CompanyRepo.getCompaniesPage(query.limit)
+   //    return query.limit
+   // }
 }
