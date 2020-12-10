@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,13 +8,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row } from "react-bootstrap";
 import "../../css/company.css";
+import CompanyCtx from "../../context/company" 
+import { useHistory } from "react-router-dom";
 
 export const CompanyCard = (props) => {
-  const { imgUrl, name, location, type, activeJob } = props;
+  const {id, imgUrl, name, location, field, jobs, onSelectedCompany } = props;
+  const {selectedCompany, setSelectedCompany} = useContext(CompanyCtx)
+  const history = useHistory()
+
+  const handleSeclectedCompany =()=>{
+    history.push("/companies/info")
+  }
+
   return (
     <Col lg={4} md={6} className="my-2 px-2">
       <div
         className="px-3 py-3 cpn-container"
+        onClick={handleSeclectedCompany}
       >
         <div className="d-flex" style={{ height: "80px" }}>
           <img src={imgUrl} className="imgUrl" />
@@ -39,7 +49,7 @@ export const CompanyCard = (props) => {
             className="flex-grow-1 pl-2"
             style={{ fontSize: "15px", height: "15px" }}
           >
-            {type}
+            {field}
           </div>
         </div>
         <div
@@ -53,7 +63,7 @@ export const CompanyCard = (props) => {
             className="flex-grow-1 pl-2"
             style={{ fontSize: "15px", height: "15px" }}
           >
-            {activeJob == 0 ? "No active job" : `${activeJob} active jobs`}
+            {jobs === 0 ? "No active job" : jobs === 1 ?  "1 active job" : `${jobs} active jobs`}
           </div>
         </div>
       </div>

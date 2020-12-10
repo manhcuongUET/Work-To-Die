@@ -11,7 +11,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(router)
 
-const PORT = 5000
+const PORT = 5050
 app.listen(PORT, () => {
     console.log("App is running at "+ PORT);
 })

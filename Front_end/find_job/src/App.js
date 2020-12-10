@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, useHistory, Link } from "react-router-dom";
-import { Nav, Navbar,Container ,Row} from "react-bootstrap";
+import { Nav, Navbar, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Companies } from "./components/Company/Companies";
-import { Home } from "./components/Home/index";
+import { Home } from "./components/Home/Home";
+import CompanyCtx from "./context/company";
+import { CompanyInfo } from "./components/Company/CompanyInfo";
+import "../src/css/style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-solid-svg-icons";
 
 export const App = () => {
   const history = useHistory();
+  const [selectedCompany, setSelectedCompany] = useState(null);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -39,8 +46,50 @@ export const App = () => {
       <Route component={Auth} /> */}
       <>
         <Route exact path="/" component={Home} />
-        <Route exact path="/companies" component={Companies} />
+        <CompanyCtx.Provider value={(selectedCompany, setSelectedCompany)}>
+          <Route exact path="/companies" component={Companies} />
+          <Route path="/companies/info" component={CompanyInfo} />
+        </CompanyCtx.Provider>
       </>
+      <div className="footer">
+        <Container className="d-flex" style={{ height: "max-content" }}>
+          <div className="aside-left">
+            <img src="./static/uet-logo.png" />
+            <p className="para-left">
+              Glints is the #1 recruitment platform in Asia helping companies
+              build successful teams with young talent. Our mission is to help
+              companies hire the right young talent effectively, and for young
+              people to discover and develop careers they love.
+            </p>
+            <p>
+              © 2020 Glints Intern Pte Ltd & Glints Singapore Pte Ltd<br></br>
+              EA Licence No: 16C7981
+            </p>
+          </div>
+
+          <div className="each-col px-0">
+            <div className="title-right">Company</div>
+            <div className="detail-right">About us</div>
+            <div className="detail-right"> Hired Blog</div>
+            <div className="detail-right">Inside Glints</div>
+            <div className="detail-right">Careeers</div>
+            <div className="detail-right">Terms&Conditions</div>
+          </div>
+          <div className="each-col px-0">
+            <div className="title-right">FOR JOB SEEKERS</div>
+            <div className="detail-right">Jobs by Location</div>
+            <div className="detail-right">Jobs by Company Name</div>
+            <div className="detail-right">Jobs by Category</div>
+          </div>
+          <div className="each-col px-0">
+            <div className="title-right">BUSINESS SOLUTIONS</div>
+            <div className="detail-right">For Employers</div>
+            <div className="detail-right">Glints Platform</div>
+            <div className="detail-right">TalentHunt</div>
+            <div className="detail-right">TalentHub</div>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 };
