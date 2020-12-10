@@ -4,6 +4,11 @@ import { Nav, Navbar,Container ,Row} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Companies } from "./components/Company/Companies";
 import { Home } from "./components/Home/index";
+import { Jobs } from "./components/jobs/Jobs"
+import {JobDetail} from "./components/jobs/JobDetail"
+import {FillUpForm} from "./components/Resume/FillUpForm"
+import { Profile } from "./components/InvidualProfile/Profile";
+
 
 export const App = () => {
   const history = useHistory();
@@ -17,7 +22,7 @@ export const App = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/jobs" className="mx-1">
+              <Nav.Link as={Link} to="/Profile" className="mx-1">
                 Jobs
               </Nav.Link>
               <Nav.Link as={Link} to="/companies" className="mx-1">
@@ -40,6 +45,11 @@ export const App = () => {
       <>
         <Route exact path="/" component={Home} />
         <Route exact path="/companies" component={Companies} />
+        <Route path="/Jobs" component={Jobs} /> 
+      <Route  path = "/JobDetail" component = {JobDetail}/>
+      <Route path = "/ResumeForm" component = {FillUpForm} />
+      <Route path = "/Profile" component = {Profile}/>
+      
       </>
     </div>
   );

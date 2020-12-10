@@ -23,10 +23,7 @@ export const Companies = () => {
   })
 
   useEffect(() => {
-    axiosInstance.get("/companies").then((res) =>{
-        console.log(res.data);
-        setCompanies(res.data)
-    })
+    
     axiosInstance.get("/companies?limit=10").then((res) =>{
       console.log(res.data);
   })
