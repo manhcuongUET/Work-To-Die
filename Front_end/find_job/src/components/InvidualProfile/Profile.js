@@ -17,7 +17,7 @@ export const Profile = (props) => {
 
 
     const a = {
-        email: "mt766157@gmail.com"
+        email: "veverv"
     }
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export const Profile = (props) => {
 
 
                                 <div className="self">
-                                    <h1 className="name" >{data.fisrtName + " " + data.lastName}<br />
+                                    <h1 className="name1" >{data.fisrtName + " " + data.lastName}<br />
                                         <span style={{ marginTop: "5px" }}>{data.major}</span></h1>
                                     <ul>
                                         <li className="ad" style={{
