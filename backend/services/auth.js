@@ -6,10 +6,10 @@ module.exports.signIn = async (username, password) => {
   if (!user) {
     throw new Error("Username not existed !");
   }
-  if (user.verifyPassword(password)) {
+  if (!user.verifyPassword(password)) {
     throw new Error("Password not correct");
   }
-  const jwt = user.generageToken;
+  const jwt = user.generateToken();
   return {jwt, user}
 };
 
