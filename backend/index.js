@@ -11,10 +11,10 @@ const app = express()
 const httpServer = http.createServer(app)
 
 const ioServer = io(httpServer)
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(router)
-
 
 
 const PORT = 5000
