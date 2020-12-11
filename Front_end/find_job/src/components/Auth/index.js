@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
-const Auth = () => {
+export const Auth = () => {
   return (
     <Row>
     <Col
@@ -19,4 +19,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+

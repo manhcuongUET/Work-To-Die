@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Route, useHistory, Link } from "react-router-dom";
 import { Nav, Navbar, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {SignIn} from "./components/Auth/SignIn"
-import {SignUp} from "./components/Auth/SignUp"
+import {Auth} from "./components/Auth"
 import { Companies } from "./components/Company/Companies";
 import { Home } from "./components/Home/Home";
 import CompanyCtx from "./context/company";
@@ -58,8 +57,7 @@ export const App = () => {
         <Route path="/JobDetail" component={JobDetail} />
         <Route path="/ResumeForm" component={FillUpForm} />
         <Route path="/Profile" component={Profile} />
-        <Route path="/auth" component={SignIn}/>
-        <Route path="/auth" component={SignUp}/>
+        <Route path="/auth" component={Auth}/>
       </>
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>
