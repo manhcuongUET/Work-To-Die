@@ -15,14 +15,14 @@ module.exports.getCompanies = async (query) => {
     let skip = (page - 1) * PAGE_SIZE;
     const onePage = await CompanyRepo.getPage(skip, PAGE_SIZE);
     return onePage;
-  } else if (query.id) {
-    const selectedCompany = await CompanyRepo.getSelectedCompany(query.id);
+  } else if (query.name) {
+    const selectedCompany = await CompanyRepo.getSelectedCompany(query.name);
     // console.log(selectedCompany);
     return selectedCompany;
   }
 };
 
 module.exports.getInfo = async (query) => {
-  const info = await CompanyRepo.getInfo(query.id);
+  const info = await CompanyRepo.getInfo(query.name);
   return info;
 };

@@ -10,7 +10,7 @@ export const LoadingIndicator = () => {
       style={{ height: "250px" }}
     >
       <FontAwesomeIcon icon={faSpinner} spin />
-      <p>Searching...</p>
+      <p>Loading...</p>
     </div>
   );
 };

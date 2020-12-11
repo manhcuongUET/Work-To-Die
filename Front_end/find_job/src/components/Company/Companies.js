@@ -10,9 +10,9 @@ import CompanyCtx from "../../context/company";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
 
 export const Companies = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
-  const [onePage, setOnePage] = useState([]);
+  const [onePage, setOnePage] = useState();
   const [pagination, setPagination] = useState({
     limit: 6,
     page: 1,
@@ -32,7 +32,7 @@ export const Companies = () => {
   //lay danh sach cong ty vao options
   //componentDidMount
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     try {
       axiosInstance.get("/companies").then((res) => {
         const _totalCompanies = res.data.length;
@@ -43,9 +43,12 @@ export const Companies = () => {
         });
         setCompanies(res.data);
       });
-    } finally {
-      setLoading(false);
-    }
+    } catch (error) {
+      console.log(error);
+    } 
+    // finally {
+    //    setLoading(false);
+    // }
   }, []);
 
   //compomentDidUpdate
@@ -53,7 +56,8 @@ export const Companies = () => {
   //load page theo tung trang
   useEffect(() => {
     const { limit, page } = filters;
-    setLoading(true);
+    // setLoading(true);
+    setOnePage()
     try {
       axiosInstance
         .get(`/companies?limit=${limit}&page=${page}`)
@@ -62,19 +66,31 @@ export const Companies = () => {
           setOnePage(res.data);
           setPagination({ ...pagination, page: page });
         });
-    } finally {
-      setLoading(false);
-    }
+    } catch (error) {
+      console.log(error);
+    } 
+    // finally {
+    //   setLoading(false);
+    // }
   }, [filters]);
 
   const onChangeOption = (selectedCompany) => {
-    setOnePage([]);
+     setOnePage();
+    // setLoading(true);
     console.log(selectedCompany);
-    axiosInstance.get(`/companies?id=${selectedCompany.label}`).then((res) => {
-      // setOnePage(res.data);
-      console.log(res.data);
-      setOnePage([res.data]);
-    });
+    try {
+      axiosInstance
+        .get(`/companies?name=${selectedCompany.label}`)
+        .then((res) => {
+          console.log(res.data);
+          setOnePage(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    } 
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
   const handlePageChange = (newPage) => {
@@ -101,7 +117,7 @@ export const Companies = () => {
         />
         <div className="d-flex"></div>
       </Col>
-      {loading ? (
+      {!onePage ? (
         <LoadingIndicator />
       ) : (
         <>
