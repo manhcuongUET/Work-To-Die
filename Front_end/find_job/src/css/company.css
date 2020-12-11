@@ -17,10 +17,12 @@
     height: 200px;
     border: 1px solid rgb(198, 198, 198);
     border-radius: 3px;
+   
     cursor: pointer;
 }
 .cpn-container:hover{
     border: 1px solid #333333;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 .cpn-container:hover .name{
     color: rgb(1, 126, 183)

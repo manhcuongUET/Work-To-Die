@@ -1,37 +1,92 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CompanyCard } from "./CompanyCard";
 import Select from "react-select";
 import { RadioButton } from "../../share/RadioButton";
 import axiosInstance from "../../utils/axios";
-
-// const [companies, setCompanies] = useState([
-//   {
-//     imgUrl: "",
-//     name: "",
-//     location: "",
-//     activeJobs: "",
-//   },
-// ]);
-
+import { Pagination } from "./Pagination";
+import CompanyCtx from "../../context/company";
+import { LoadingIndicator } from "../../share/LoadingIndicator";
 
 export const Companies = () => {
-  const [companies, setCompanies] = useState([])
-  const options= companies.map((company) =>{
-    return {label: company.name, value: company._id}
-  })
+  const [loading, setLoading] = useState(true);
+  const [companies, setCompanies] = useState([]);
+  const [onePage, setOnePage] = useState([]);
+  const [pagination, setPagination] = useState({
+    limit: 6,
+    page: 1,
+    totalCompanies: 22,
+  });
+  const [filters, setFilters] = useState({
+    limit: 6,
+    page: 1,
+  });
 
+  const { selectedCompany, setSelectedCompany } = useContext(CompanyCtx);
+
+  const options = companies.map((company) => {
+    return { label: company.name, value: company._id };
+  });
+
+  //lay danh sach cong ty vao options
+  //componentDidMount
   useEffect(() => {
-    
-    axiosInstance.get("/companies?limit=10").then((res) =>{
-      console.log(res.data);
-  })
-    
+    setLoading(true);
+    try {
+      axiosInstance.get("/companies").then((res) => {
+        const _totalCompanies = res.data.length;
+        console.log(_totalCompanies);
+        setPagination({
+          ...pagination,
+          totalCompanies: _totalCompanies,
+        });
+        setCompanies(res.data);
+      });
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const onChangeSeclect = (value) => {
-    console.log(value);
+  //compomentDidUpdate
+
+  //load page theo tung trang
+  useEffect(() => {
+    const { limit, page } = filters;
+    setLoading(true);
+    try {
+      axiosInstance
+        .get(`/companies?limit=${limit}&page=${page}`)
+        .then((res) => {
+          console.log(res.data);
+          setOnePage(res.data);
+          setPagination({ ...pagination, page: page });
+        });
+    } finally {
+      setLoading(false);
+    }
+  }, [filters]);
+
+  const onChangeOption = (selectedCompany) => {
+    setOnePage([]);
+    console.log(selectedCompany);
+    axiosInstance.get(`/companies?id=${selectedCompany.label}`).then((res) => {
+      // setOnePage(res.data);
+      console.log(res.data);
+      setOnePage([res.data]);
+    });
+  };
+
+  const handlePageChange = (newPage) => {
+    setFilters({
+      ...filters,
+      page: newPage,
+    });
+  };
+
+  const handleSeclectedCompany = (companyId) => {
+    // setSelectedCompany(companyId);
+    // console.log(selectedCompany);
   };
 
   return (
@@ -40,28 +95,35 @@ export const Companies = () => {
         <Select
           options={options}
           placeholder="Company..."
-          onChange={onChangeSeclect}
+          onChange={onChangeOption}
+          style={{}}
+          className="my-5"
         />
         <div className="d-flex"></div>
       </Col>
-      <Row>
-        <CompanyCard
-          imgUrl="./static/uet-logo.png"
-          name="University of Engineering and Technology"
-          location="Ha noi, Viet Nam"
-          type="Education"
-          activeJob="2"
-        />
-        <CompanyCard
-          imgUrl="./static/fpt-logo.png"
-          name="Financing Promoting Technology"
-          location="Ha noi, Viet Nam"
-          activeJob="2"
-        />
-        <CompanyCard name="test" />
-        <CompanyCard />
-        <CompanyCard />
-      </Row>
+      {loading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          <Row style={{ height: "max-content", minHeight: "450px" }}>
+            {onePage.map((company) => {
+              return (
+                <CompanyCard
+                  key={company._id}
+                  id={company._id}
+                  imgUrl={company.imgUrl}
+                  name={company.name}
+                  location={company.location}
+                  field={company.field}
+                  jobs={company.jobs.length}
+                  onSelectedCompany={handleSeclectedCompany}
+                />
+              );
+            })}
+          </Row>
+          <Pagination pagination={pagination} onPageChange={handlePageChange} />
+        </>
+      )}
     </Container>
   );
 };
