@@ -8,12 +8,14 @@ exports.getCompanies = async () => {
 exports.getPage = async (skip, PAGE_SIZE) => {
   const onePage = await db.companies
     .aggregate([
-      {$lookup: {
-        from: 'jobs',
-        localField: 'name',
-        foreignField: 'companyName',
-        as: 'jobs'
-      }}
+      {
+        $lookup: {
+          from: "jobs",
+          localField: "name",
+          foreignField: "companyName",
+          as: "jobs",
+        },
+      },
     ])
     .skip(skip)
     .limit(PAGE_SIZE)
@@ -21,13 +23,42 @@ exports.getPage = async (skip, PAGE_SIZE) => {
   return onePage;
 };
 
-exports.getSelectedCompany = async (id) => {
-  const selectedCompany = await db.companies.findOne({ name: id });
+exports.getSelectedCompany = async (name) => {
+  // .findOne({ name: id })
+  const selectedCompany = await db.companies
+    .aggregate([
+      {
+        $match: { name: `${name}` },
+      },
+      {
+        $lookup: {
+          from: "jobs",
+          localField: "name",
+          foreignField: "companyName",
+          as: "jobs",
+        },
+      },
+    ])
+    .toArray()
   return selectedCompany;
 };
 
-exports.getInfo = async (id) => {
-  const info = await db.companies.findOne({ name: id });
+exports.getInfo = async (name) => {
+  const info = await await db.companies
+  .aggregate([
+    {
+      $match: { name: `${name}` },
+    },
+    {
+      $lookup: {
+        from: "jobs",
+        localField: "name",
+        foreignField: "companyName",
+        as: "jobs",
+      },
+    },
+  ])
+  .toArray()
   return info;
 };
 
