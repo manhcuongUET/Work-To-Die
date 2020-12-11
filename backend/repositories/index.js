@@ -7,9 +7,8 @@ client.connect().then((connectedClient) => {
     console.log("mongodb connected");
     const database = connectedClient.db("work_to_die")
     db.companies = database.collection("companies")
-    const database1 = connectedClient.db("test")
-    db.jobs = database1.collection("Info")
-    db.profiles = database1.collection("profile")
+    db.jobs = database.collection("jobs")
+    db.profiles = database.collection("profile")
 })
 
 module.exports = db

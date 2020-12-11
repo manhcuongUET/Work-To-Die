@@ -17,7 +17,7 @@ export const Profile = (props) => {
 
 
     const a = {
-        email: "veverv"
+        email: "mt766157@gmail.com"
     }
 
     useEffect(() => {
