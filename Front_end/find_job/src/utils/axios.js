@@ -5,6 +5,6 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(
-    (config) => new Promise((resolve) => setTimeout(() => resolve(config), 600))
+    (config) => new Promise((resolve) => setTimeout(() => resolve(config), 700))
 )
 export default axiosInstance;

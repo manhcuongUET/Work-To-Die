@@ -11,6 +11,10 @@
 }
 .frame:hover {
     border: 2px solid black;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.frame:hover .carrer {
+    color: rgb(1, 126, 183)
 }
 .frame .info {
     display: flex;
@@ -28,10 +32,11 @@
 }
 .carrer {
     font-weight: bold;
+    width: 250px;
+    height: 30px;
+    overflow: hidden;
 }
-.carrer:hover {
-    color: aquamarine;
-}
+
 .detail .companyName {
     font-size: 12px;
     color: rgb(1, 126, 183);

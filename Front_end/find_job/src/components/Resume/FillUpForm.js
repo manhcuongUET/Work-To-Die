@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Route , Link } from "react-router-dom"
+import React, { useContext, useEffect, useState, } from 'react'
+import { Route, Link, useHistory } from "react-router-dom"
 import "./fillUpForm.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Form, Row, Col, InputGroup } from "react-bootstrap";
 import axiosInstance from "../../utils/axios"
+import resumeMailContext from "../../context/resumeMail"
 
 
 
 export const FillUpForm = () => {
 
-
+    const history = useHistory()
+    const { resumeMail, setResumeMail } = useContext(resumeMailContext)
 
     const [isFormFillUp, setIsFormFillUp] = useState(false);
 
@@ -149,280 +151,288 @@ export const FillUpForm = () => {
                 skill2: skill2,
                 skill3: skill3,
             }
-            axiosInstance.post("/profile" , profile)
+            axiosInstance.post("/profile", profile)
+
+            setResumeMail(inputValue.email)
+
             setIsFormFillUp(true)
         }
 
-        setValidated(true);
+        setValidated(true)
     };
 
+    const gotoProfile = () => {
+        history.push("/profile")
+    }
 
-      console.log(inputValue.email)
+
     return (
-        <div style = {{backgroundImage: "url(" + "./image/hi.jpg" + ")" , 
-        marginTop: -30}}> {isFormFillUp ? <div style = {{marginTop : 100}}>You have done it, onClick
+        <div style={{
+            backgroundImage: "url(" + "./image/hi.jpg" + ")",
+            marginTop: -30
+        }}> {isFormFillUp ? <div style={{ marginTop: 100 }} className = "done">You have done it, click {""} 
 
-            <Link to="/profile" params={{ email: inputValue.email }}>here</Link>to see your profile</div> 
-           
-           
-           : <div className="container">
+           <a onClick={gotoProfile} className = "here" >here</a> to see your profile</div>
 
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
-                <div className="title" style = {{paddingTop: 60}}>COMPLETE YOUR <span style={{ fontWeight: "bold" }}>RESUME HEADING</span></div>
-                <div className="underTitle">Employers will use this information to contact you.</div>
+            : <div className="container">
 
-                {/* ngan cachhhhh */}
-                <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="validationCustom01">
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="First name"
-                            value={inputValue.firstName}
-                            onChange={handleChangeInput}
-                            name="firstName"
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationCustom02">
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="Last name"
-                            value={inputValue.lastName}
-                            onChange={handleChangeInput}
-                            name="lastName"
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                        <Form.Label>Email</Form.Label>
-                        <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                            </InputGroup.Prepend>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+
+                    <div className="title" style={{ paddingTop: 60 }}>COMPLETE YOUR <span style={{ fontWeight: "bold" }}>RESUME HEADING</span></div>
+                    <div className="underTitle">Employers will use this information to contact you.</div>
+
+                    {/* ngan cachhhhh */}
+                    <Form.Row>
+                        <Form.Group as={Col} md="4" controlId="validationCustom01">
+                            <Form.Label>First name</Form.Label>
                             <Form.Control
-                                type="Email"
-                                placeholder="Email"
-                                aria-describedby="inputGroupPrepend"
                                 required
-                                value={inputValue.email}
+                                type="text"
+                                placeholder="First name"
+                                value={inputValue.firstName}
                                 onChange={handleChangeInput}
-                                name="email"
+                                name="firstName"
                             />
-                            <Form.Control.Feedback type="invalid">
-                                Please choose a username.
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group as={Col} md="4" controlId="validationCustom02">
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                placeholder="Last name"
+                                value={inputValue.lastName}
+                                onChange={handleChangeInput}
+                                name="lastName"
+                            />
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                            <Form.Label>Email</Form.Label>
+                            <InputGroup>
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control
+                                    type="Email"
+                                    placeholder="Email"
+                                    aria-describedby="inputGroupPrepend"
+                                    required
+                                    value={inputValue.email}
+                                    onChange={handleChangeInput}
+                                    name="email"
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please choose a username.
               </Form.Control.Feedback>
-                        </InputGroup>
-                    </Form.Group>
-                </Form.Row>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
 
-                {/* ngan cachhh  */}
+                    {/* ngan cachhh  */}
 
-                <Form.Row>
-                    <Form.Group as={Col} md="6" controlId="validationCustom03">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control type="text" placeholder="Address" required value={inputValue.address} onChange={handleChangeInput} name="address" />
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid address.
+                    <Form.Row>
+                        <Form.Group as={Col} md="6" controlId="validationCustom03">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control type="text" placeholder="Address" required value={inputValue.address} onChange={handleChangeInput} name="address" />
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid address.
             </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationCustom04">
-                        <Form.Label>Phone Number</Form.Label>
-                        <Form.Control type="number" placeholder="Phone number" required value={inputValue.phoneNumber} onChange={handleChangeInput} name="phoneNumber" />
-                        <Form.Control.Feedback type="invalid">
-                            Your phone number.
+                        </Form.Group>
+                        <Form.Group as={Col} md="3" controlId="validationCustom04">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="number" placeholder="Phone number" required value={inputValue.phoneNumber} onChange={handleChangeInput} name="phoneNumber" />
+                            <Form.Control.Feedback type="invalid">
+                                Your phone number.
             </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationCustom05">
-                        <Form.Label>Major</Form.Label>
-                        <Form.Control type="text" placeholder="Major" required value={inputValue.major} onChange={handleChangeInput} name="major" />
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid major.
+                        </Form.Group>
+                        <Form.Group as={Col} md="3" controlId="validationCustom05">
+                            <Form.Label>Major</Form.Label>
+                            <Form.Control type="text" placeholder="Major" required value={inputValue.major} onChange={handleChangeInput} name="major" />
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid major.
             </Form.Control.Feedback>
+                        </Form.Group>
+                    </Form.Row>
+
+                    {/* Ngan cachhh */}
+
+                    <div className="title" style={{ fontWeight: "bold" }}>Objective</div>
+                    <Form.Group>
+                        <textarea className="inputTag" placeholder="" value={inputValue.objective} onChange={handleChangeInput} name="objective"></textarea>
                     </Form.Group>
-                </Form.Row>
 
-                {/* Ngan cachhh */}
+                    {/* Ngan cachh */}
 
-                <div className="title" style={{ fontWeight: "bold" }}>Objective</div>
-                <Form.Group>
-                    <textarea className="inputTag" placeholder="" value={inputValue.objective} onChange={handleChangeInput} name="objective"></textarea>
-                </Form.Group>
+                    <div className="title" style={{ fontWeight: "bold" }}>Education</div>
 
-                {/* Ngan cachh */}
-
-                <div className="title" style={{ fontWeight: "bold" }}>Education</div>
-
-                <Form.Row>
-                    <Form.Group style={{ marginRight: 20 }}>
-                        <Form.Label>Start</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text" required value={education.start} onChange={handleChangeEducation} name="start" />
-                        <Form.Label style = {{marginTop: 10}}>Graduated</Form.Label>
-                        <Form.Control  type="month" placeholder="Normal text" value={education.graduated} onChange={handleChangeEducation} required name="graduated" />
-                    </Form.Group>
-                    {/* <Form.Group style={{ marginRight: 20 }}>
+                    <Form.Row>
+                        <Form.Group style={{ marginRight: 20 }}>
+                            <Form.Label>Start</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" required value={education.start} onChange={handleChangeEducation} name="start" />
+                            <Form.Label style={{ marginTop: 10 }}>Graduated</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={education.graduated} onChange={handleChangeEducation} required name="graduated" />
+                        </Form.Group>
+                        {/* <Form.Group style={{ marginRight: 20 }}>
                        
                     </Form.Group> */}
 
-                    <Form.Group style={{ flexGrow: 1 }}>
-                        <Form.Label>College / University</Form.Label>
-                        <Form.Control type="text" placeholder="" value={education.school} onChange={handleChangeEducation} required name="school" />
-                        <Form.Label style = {{marginTop: 10}}>Majors in school</Form.Label>
-                        <Form.Control type="text" placeholder="" value={education.majors} onChange={handleChangeEducation} required name="majors" />
-                    </Form.Group>
-                </Form.Row>
-                {/* Ngan cachh */}
+                        <Form.Group style={{ flexGrow: 1 }}>
+                            <Form.Label>College / University</Form.Label>
+                            <Form.Control type="text" placeholder="" value={education.school} onChange={handleChangeEducation} required name="school" />
+                            <Form.Label style={{ marginTop: 10 }}>Majors in school</Form.Label>
+                            <Form.Control type="text" placeholder="" value={education.majors} onChange={handleChangeEducation} required name="majors" />
+                        </Form.Group>
+                    </Form.Row>
+                    {/* Ngan cachh */}
 
-                <Form.Row>
-                    <Form.Group style={{ marginRight: 20 , marginTop: 45 }}>
-                        <Form.Label>Start</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text"  value={education1.start} onChange={handleChangeEducation1} name="start" />
-                        <Form.Label style = {{marginTop: 10}}>Graduated</Form.Label>
-                        <Form.Control  type="month" placeholder="Normal text" value={education1.graduated} onChange={handleChangeEducation1} name="graduated" />
-                    </Form.Group>
-                    {/* <Form.Group style={{ marginRight: 20 }}>
+                    <Form.Row>
+                        <Form.Group style={{ marginRight: 20, marginTop: 45 }}>
+                            <Form.Label>Start</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={education1.start} onChange={handleChangeEducation1} name="start" />
+                            <Form.Label style={{ marginTop: 10 }}>Graduated</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={education1.graduated} onChange={handleChangeEducation1} name="graduated" />
+                        </Form.Group>
+                        {/* <Form.Group style={{ marginRight: 20 }}>
                        
                     </Form.Group> */}
 
-                    <Form.Group style={{ flexGrow: 1 , marginTop: 45 }}>
-                        <Form.Label>College / University</Form.Label>
-                        <Form.Control type="text" placeholder="" value={education1.school} onChange={handleChangeEducation1}  name="school" />
-                        <Form.Label style = {{marginTop: 10}}>Majors in school</Form.Label>
-                        <Form.Control type="text" placeholder="" value={education1.majors} onChange={handleChangeEducation1}  name="majors" />
+                        <Form.Group style={{ flexGrow: 1, marginTop: 45 }}>
+                            <Form.Label>College / University</Form.Label>
+                            <Form.Control type="text" placeholder="" value={education1.school} onChange={handleChangeEducation1} name="school" />
+                            <Form.Label style={{ marginTop: 10 }}>Majors in school</Form.Label>
+                            <Form.Control type="text" placeholder="" value={education1.majors} onChange={handleChangeEducation1} name="majors" />
+                        </Form.Group>
+                    </Form.Row>
+
+                    {/* Ngan cachh   */}
+
+                    <div className="title" style={{ fontWeight: "bold" }}>Experience</div>
+
+                    <Form.Row>
+                        <Form.Group style={{ marginRight: 20 }}>
+                            <Form.Label>Start</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={experience.start} onChange={handleChangeExperience} name="start" />
+                            <Form.Label>Ended</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={experience.end} onChange={handleChangeExperience} name="end" />
+                        </Form.Group>
+                        <Form.Group style={{ flexGrow: 1 }}>
+                            <textarea className="inputTag" placeholder="" value={experience.text} onChange={handleChangeExperience} name="text"></textarea>
+                        </Form.Group>
+                    </Form.Row>
+
+                    {/* ngan cachh */}
+
+                    <Form.Row style={{ marginTop: 35 }}>
+                        <Form.Group style={{ marginRight: 20 }}>
+                            <Form.Label>Start</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={experience1.start} onChange={handleChangeExperience1} name="start" />
+                            <Form.Label>Ended</Form.Label>
+                            <Form.Control type="month" placeholder="Normal text" value={experience1.end} onChange={handleChangeExperience1} name="end" />
+                        </Form.Group>
+                        <Form.Group style={{ flexGrow: 1 }}>
+                            <textarea className="inputTag" placeholder="" value={experience1.text} onChange={handleChangeExperience1} name="text"></textarea>
+                        </Form.Group>
+                    </Form.Row>
+
+
+                    {/* Ngan cachhhh */}
+
+
+                    <div className="title" style={{ fontWeight: "bold" }}>Certificate</div>
+                    <Form.Row style={{ justifyContent: "space-around" }}>
+                        <Form.Group style={{ width: "35%" }}>
+                            <Form.Label>Specialized certificate</Form.Label>
+                            <textarea className="inputTagg" required value={certificate.specialized} onChange={handleChangeCertificate} name="specialized"></textarea>
+                        </Form.Group>
+                        <Form.Group style={{ width: "35%" }}>
+                            <Form.Label>Language Certificate</Form.Label>
+                            <textarea className="inputTagg" required value={certificate.language} onChange={handleChangeCertificate} name="language"></textarea>
+                        </Form.Group>
+                    </Form.Row>
+
+                    {/* Ngan cachhh */}
+
+                    <div className="title" style={{ fontWeight: "bold" }}>Skills</div>
+                    <div className="underTitle">Highlight 2-3 of your top skills.</div>
+
+
+
+                    <Form.Row style={{ justifyContent: "space-between" }}>
+                        <Form.Group as={Col} md="5" controlId="validationCustom06">
+                            <Form.Label>Skill</Form.Label>
+                            <Form.Control type="text" placeholder="" name="type" value={skill1.type} onChange={handleChangeSkill1} />
+                        </Form.Group>
+                        <Form.Group as={Col} md="5" controlId="validationCustom07">
+                            <Form.Label>Level</Form.Label>
+                            <Form.Control as="select" name="level" value={skill1.level} onChange={handleChangeSkill1} >
+                                <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
+                                <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
+                                <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
+                                <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
+                                <option value="5">★ ★ ★ ★ ★ – Expert</option>
+                                <option value="0">Don't show level</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                    </Form.Row>
+
+                    <Form.Row style={{ justifyContent: "space-between" }}>
+                        <Form.Group as={Col} md="5" controlId="validationCustom06">
+                            <Form.Label>Skill</Form.Label>
+                            <Form.Control type="text" placeholder="" name="type" value={skill2.type} onChange={handleChangeSkill2} />
+                        </Form.Group>
+                        <Form.Group as={Col} md="5" controlId="validationCustom07">
+                            <Form.Label>Level</Form.Label>
+                            <Form.Control as="select" value={skill2.level} name="level" onChange={handleChangeSkill2}>
+                                <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
+                                <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
+                                <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
+                                <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
+                                <option value="5">★ ★ ★ ★ ★ – Expert</option>
+                                <option value="0">Don't show level</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                    </Form.Row>
+
+
+
+                    <Form.Row style={{ justifyContent: "space-between" }}>
+                        <Form.Group as={Col} md="5" controlId="validationCustom06">
+                            <Form.Label>Skill</Form.Label>
+                            <Form.Control type="text" placeholder="" value={skill3.type} name="type" onChange={handleChangeSkill3} />
+                        </Form.Group>
+                        <Form.Group as={Col} md="5" controlId="validationCustom07">
+                            <Form.Label>Level</Form.Label>
+                            <Form.Control as="select" value={skill3.level} name="level" onChange={handleChangeSkill3} >
+                                <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
+                                <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
+                                <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
+                                <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
+                                <option value="5">★ ★ ★ ★ ★ – Expert</option>
+                                <option value="0">Don't show level</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                    </Form.Row>
+
+                    {/* Ngan cachhh */}
+
+
+                    <Form.Group>
+                        <Form.Check
+                            required
+                            label="I'm sure that's all my true information"
+                            feedback="You must agree before submitting."
+                        />
                     </Form.Group>
-                </Form.Row>
 
-                {/* Ngan cachh   */}
+                    <Button type="submit">Submit form</Button>
+                </Form>
 
-                <div className="title" style={{ fontWeight: "bold" }}>Experience</div>
-
-                <Form.Row>
-                    <Form.Group style={{ marginRight: 20 }}>
-                        <Form.Label>Start</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text" value={experience.start} onChange={handleChangeExperience} name="start" />
-                        <Form.Label>Ended</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text" value={experience.end} onChange={handleChangeExperience} name="end" />
-                    </Form.Group>
-                    <Form.Group style={{ flexGrow: 1 }}>
-                        <textarea  className="inputTag" placeholder="" value={experience.text} onChange={handleChangeExperience} name="text"></textarea>
-                    </Form.Group>
-                </Form.Row>
-
-                {/* ngan cachh */}
-
-                <Form.Row style = {{marginTop : 35}}>
-                    <Form.Group style={{ marginRight: 20 }}>
-                        <Form.Label>Start</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text" value={experience1.start} onChange={handleChangeExperience1} name="start" />
-                        <Form.Label>Ended</Form.Label>
-                        <Form.Control type="month" placeholder="Normal text" value={experience1.end} onChange={handleChangeExperience1} name="end" />
-                    </Form.Group>
-                    <Form.Group style={{ flexGrow: 1 }}>
-                        <textarea  className="inputTag" placeholder="" value={experience1.text} onChange={handleChangeExperience1} name="text"></textarea>
-                    </Form.Group>
-                </Form.Row>
-
-
-                {/* Ngan cachhhh */}
-
-
-                <div className="title" style={{ fontWeight: "bold" }}>Certificate</div>
-                <Form.Row style={{ justifyContent: "space-around" }}>
-                    <Form.Group style={{ width: "35%" }}>
-                        <Form.Label>Specialized certificate</Form.Label>
-                        <textarea className="inputTagg" required value={certificate.specialized} onChange={handleChangeCertificate} name="specialized"></textarea>
-                    </Form.Group>
-                    <Form.Group style={{ width: "35%" }}>
-                        <Form.Label>Language Certificate</Form.Label>
-                        <textarea className="inputTagg" required value={certificate.language} onChange={handleChangeCertificate} name="language"></textarea>
-                    </Form.Group>
-                </Form.Row>
-
-                {/* Ngan cachhh */}
-
-                <div className="title" style={{ fontWeight: "bold" }}>Skills</div>
-                <div className="underTitle">Highlight 2-3 of your top skills.</div>
-
-
-
-                <Form.Row style={{ justifyContent: "space-between" }}>
-                    <Form.Group as={Col} md="5" controlId="validationCustom06">
-                        <Form.Label>Skill</Form.Label>
-                        <Form.Control type="text" placeholder="" name="type" value={skill1.type} onChange={handleChangeSkill1} />
-                    </Form.Group>
-                    <Form.Group as={Col} md="5" controlId="validationCustom07">
-                        <Form.Label>Level</Form.Label>
-                        <Form.Control as="select" name="level" value={skill1.level} onChange={handleChangeSkill1} >
-                            <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
-                            <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
-                            <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
-                            <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
-                            <option value="5">★ ★ ★ ★ ★ – Expert</option>
-                            <option value="0">Don't show level</option>
-                        </Form.Control>
-                    </Form.Group>
-
-                </Form.Row>
-
-                <Form.Row style={{ justifyContent: "space-between" }}>
-                    <Form.Group as={Col} md="5" controlId="validationCustom06">
-                        <Form.Label>Skill</Form.Label>
-                        <Form.Control type="text" placeholder="" name="type" value={skill2.type} onChange={handleChangeSkill2} />
-                    </Form.Group>
-                    <Form.Group as={Col} md="5" controlId="validationCustom07">
-                        <Form.Label>Level</Form.Label>
-                        <Form.Control as="select" value={skill2.level} name="level" onChange={handleChangeSkill2}>
-                            <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
-                            <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
-                            <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
-                            <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
-                            <option value="5">★ ★ ★ ★ ★ – Expert</option>
-                            <option value="0">Don't show level</option>
-                        </Form.Control>
-                    </Form.Group>
-
-                </Form.Row>
-
-
-
-                <Form.Row style={{ justifyContent: "space-between" }}>
-                    <Form.Group as={Col} md="5" controlId="validationCustom06">
-                        <Form.Label>Skill</Form.Label>
-                        <Form.Control type="text" placeholder="" value={skill3.type} name="type" onChange={handleChangeSkill3} />
-                    </Form.Group>
-                    <Form.Group as={Col} md="5" controlId="validationCustom07">
-                        <Form.Label>Level</Form.Label>
-                        <Form.Control as="select" value={skill3.level} name="level" onChange={handleChangeSkill3} >
-                            <option value="1">★ ☆ ☆ ☆ ☆ – Novice</option>
-                            <option value="2">★ ★ ☆ ☆ ☆ – Beginner</option>
-                            <option value="3">★ ★ ★ ☆ ☆ – Skillful</option>
-                            <option value="4">★ ★ ★ ★ ☆ – Experienced</option>
-                            <option value="5">★ ★ ★ ★ ★ – Expert</option>
-                            <option value="0">Don't show level</option>
-                        </Form.Control>
-                    </Form.Group>
-
-                </Form.Row>
-
-                {/* Ngan cachhh */}
-
-
-                <Form.Group>
-                    <Form.Check
-                        required
-                        label="I'm sure that's all my true information"
-                        feedback="You must agree before submitting."
-                    />
-                </Form.Group>
-
-                <Button type="submit">Submit form</Button>
-            </Form>
-
-        </div>}</div>
+            </div>}</div>
 
 
     );

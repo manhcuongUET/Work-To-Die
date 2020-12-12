@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Select from "react-select";
-import { Route } from "react-router-dom"
+import { Route, useHistory } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavDropdown, Nav, Button, Navbar, Form, Row, Col, Container } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import "./job.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faTimes, faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { JobsInfo } from "./JobsInfo"
 import { Next } from "./Next"
 import axiosInstance from "../../utils/axios"
+import jobContext from "../../context/job"
+import { LoadingSign } from '../../share/LoadingIndicator';
+
 
 
 export const Jobs = () => {
-
-
+    const history = useHistory()
+    const { selectedJob, setSelectedJob } = useContext(jobContext)
     const [allJobs, setAllJobs] = useState([])
     const [loading, setLoading] = useState(true);
     const [onePage, setOnePage] = useState([]);
+    const [onePageDefault, setOnePageDefault] = useState([])
     const [located, setLocated] = useState("vietnam")
     const [salary, setSalary] = useState(0)
     const [isFilled, setIsFilled] = useState(false)
+    const [sorted, setSorted] = useState("none")
 
     const [pagination, setPagination] = useState({
         limit: 6,
@@ -37,7 +42,9 @@ export const Jobs = () => {
     }
 
     useEffect(() => {
+        console.log('locate effect')
         setOnePage([])
+        
 
         setFilters({
             ...filters,
@@ -46,7 +53,6 @@ export const Jobs = () => {
         if (located.localeCompare("vietnam") != 0 || salary > 0) {
             axiosInstance.get(`/jobs/located?located=${located}&salary=${salary}`).then((res) => {
                 setIsFilled(true)
-                console.log(res.data)
                 setOnePage(res.data)
             })
         }
@@ -56,11 +62,11 @@ export const Jobs = () => {
             try {
                 axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
                     setOnePage([...onePage, ...res.data])
+
                     setPagination({ ...pagination, page: page })
                 })
             } finally {
                 setLoading(false)
-
             }
         }
 
@@ -71,8 +77,11 @@ export const Jobs = () => {
         setSalary(value)
     }
 
+
     useEffect(() => {
+        console.log('salary effect')
         setOnePage([])
+        setOnePageDefault([])
 
         setFilters({
             ...filters,
@@ -82,8 +91,8 @@ export const Jobs = () => {
         if (located.localeCompare("vietnam") != 0 || salary > 0) {
             axiosInstance.get(`/jobs/located?located=${located}&salary=${salary}`).then((res) => {
                 setIsFilled(true)
-                console.log(res.data)
                 setOnePage(res.data)
+                setOnePageDefault([])
             })
         }
         else {
@@ -92,6 +101,7 @@ export const Jobs = () => {
             try {
                 axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
                     setOnePage([...onePage, ...res.data])
+                    setOnePageDefault([...onePage, ...res.data])
                     setPagination({ ...pagination, page: page })
                 })
             } finally {
@@ -128,10 +138,11 @@ export const Jobs = () => {
 
     const oneChangeOption = (selectedJob) => {
         setOnePage([])
+        setOnePageDefault([])
 
         axiosInstance.get(`/jobs/selected?id=${selectedJob.label}`).then((res) => {
-            console.log(res.data)
             setOnePage(res.data)
+            setOnePageDefault(res.data)
         })
     }
 
@@ -142,11 +153,12 @@ export const Jobs = () => {
     }, [])
 
     useEffect(() => {
-
+        console.log('filter effect')
         setLoading(true)
         const { limit, page } = filters
         try {
             axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
+                setOnePageDefault([...onePageDefault, ...res.data])
                 setOnePage([...onePage, ...res.data])
                 setPagination({ ...pagination, page: page })
             })
@@ -158,7 +170,6 @@ export const Jobs = () => {
 
     const getData = () => {
         let length = onePage.length
-        console.log(length)
         let jobRender = [];
 
         for (let i = 0; i < length; i++) {
@@ -168,11 +179,44 @@ export const Jobs = () => {
                 companyName={onePage[i].companyName}
                 website={onePage[i].company[0].website}
                 img={onePage[i].company[0].imgUrl}
-                updateTime={onePage[i].timePost} /></Col>
+                updateTime={onePage[i].timePost}
+                salary={onePage[i].salary}
+                onSelectedJob={handleSelectedJob}
+            /></Col>
+
         }
         return jobRender
     }
 
+    const handleSelectedJob = (job) => {
+        setSelectedJob(job)
+    }
+
+    const sortOnePage = () => {
+        const a =  [...onePage]
+        for (let i = 0; i < a.length - 1; i++) {
+            for (let j = 0; j < a.length - i - 1 ; j++) {
+                if (a[j].salary < a[j + 1].salary) {
+                    const temp = a[j]
+                    a[j] = a[j + 1]
+                    a[j + 1] = temp
+                }
+            }
+        }
+        return a
+    }
+
+    const handlesorted = (e) => {
+        const {name , value} = e.target
+        if(value.localeCompare("salary") === 0) {
+            setOnePage(sortOnePage())
+            console.log(onePage)
+            console.log(onePageDefault)
+        }
+        else {
+            setOnePage(onePageDefault)
+        }
+    }
 
 
     return (
@@ -219,11 +263,11 @@ export const Jobs = () => {
             <div className="filterList">
                 <div className="filterWrap">
                     <div className="filterTitle"><FontAwesomeIcon icon={faFilter} className="filterFont" size="2x" />Filter:</div>
-                    {located.localeCompare("vietnam") == 0 ? null : <div className="filterName">{located}<FontAwesomeIcon icon={faTimes}  className="closeFont" size="2x" onClick = {closeLocated} /></div>}
+                    {located.localeCompare("vietnam") == 0 ? null : <div className="filterName">{located}<FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" onClick={closeLocated} /></div>}
 
-                    {salary === 0 ? null : <div className="filterName">Up to {salary}$ <FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" onClick = {closeSalary} /></div>}
+                    {salary === 0 ? null : <div className="filterName">Up to {salary}$ <FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" onClick={closeSalary} /></div>}
 
-                    <div className="filterName" style={{ color: "red" }}>Reset <FontAwesomeIcon onClick={reset} icon={faTimes} className="closeFont" size="2x" /></div>
+                    {salary != 0 || located.localeCompare("vietnam") != 0 ? <div className="filterName" style={{ color: "red" }}>Reset <FontAwesomeIcon onClick={reset} icon={faTimes} className="closeFont" size="2x" /></div> : null}
                 </div>
 
             </div>
@@ -232,20 +276,22 @@ export const Jobs = () => {
                     <div className="jobNumber" style={{ paddingTop: 10 }}>Showing {30} jobs out of {1200} total</div>
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label style={{ fontSize: 12 }}>Sorted by</Form.Label>
-                        <Form.Control as="select" style={{ marginTop: -10, width: 150 }}>
-                            <option>Default</option>
-                            <option>Salary</option>
-                            <option>Posted time</option>
+                        <Form.Control as="select" style={{ marginTop: -10, width: 150 }} name = "a" onChange={handlesorted}>
+                            <option value="none">Default</option>
+                            <option value="salary">Salary</option>
                         </Form.Control>
                     </Form.Group>
                 </div>
             </div>
             <div className="containerr">
                 <Row className="roww">
-                    {loading ? <div>Loadingg...</div> : getData()}
+                    {onePage.length == 0 ? <LoadingSign text="Loading" /> : getData()}
                 </Row>
 
-                {located.localeCompare("vietnam") == 0 && salary == 0 ? <Next pagination={pagination} onPageChange={handlePageChange} /> : null}
+                <div>
+                    {located.localeCompare("vietnam") == 0 && salary == 0 ? <Next pagination={pagination} onPageChange={handlePageChange} /> : null}
+                </div>
+
 
             </div>
         </div>
