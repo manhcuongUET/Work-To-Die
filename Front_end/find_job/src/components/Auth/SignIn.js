@@ -31,7 +31,8 @@ export const SignIn = () => {
     try {
       const res = await axios.post("/auth/sign-in", values);
       const {jwt} = res.data;
-      localStorage.setItem("jwt", jwt)
+      // localStorage.setItem("jwt", jwt)
+
     } catch (err) {
       setErr(err.message);
     } finally {

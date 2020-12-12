@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {useHistory, useLocation } from 'react-router-dom'
+
 import { CompanyCard } from "./CompanyCard";
 import Select from "react-select";
 import { RadioButton } from "../../share/RadioButton";
@@ -10,18 +12,21 @@ import companyContext from "../../context/company";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
 
 export const Companies = () => {
-  // const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
+  const pageQuery = parseInt(location.search.slice(6))
+  console.log(pageQuery)
   const [companies, setCompanies] = useState([]);
   const [onePage, setOnePage] = useState();
   const [pagination, setPagination] = useState({
     limit: 6,
     page: 1,
-    totalCompanies: 22,
+    totalCompanies: 1,
   });
-  const [filters, setFilters] = useState({
-    limit: 6,
-    page: 1,
-  });
+  // const [filters, setFilters] = useState({
+  //   limit: 6,
+  //   page: 1,
+  // });
 
   const { selectedCompany, setSelectedCompany } = useContext(companyContext);
 
@@ -32,51 +37,44 @@ export const Companies = () => {
   //lay danh sach cong ty vao options
   //componentDidMount
   useEffect(() => {
-    // setLoading(true);
     try {
       axiosInstance.get("/companies").then((res) => {
         const _totalCompanies = res.data.length;
         console.log(_totalCompanies);
         setPagination({
           ...pagination,
-          totalCompanies: _totalCompanies,
+          totalCompanies: _totalCompanies
         });
         setCompanies(res.data);
       });
     } catch (error) {
       console.log(error);
     } 
-    // finally {
-    //    setLoading(false);
-    // }
   }, []);
 
   //compomentDidUpdate
 
   //load page theo tung trang
   useEffect(() => {
-    const { limit, page } = filters;
-    // setLoading(true);
+    // const {page, limit} = filters;
+    const {limit} = pagination
+    // console.log('filters', filters)
     setOnePage()
     try {
       axiosInstance
-        .get(`/companies?limit=${limit}&page=${page}`)
+        .get(`/companies?limit=${limit}&page=${pageQuery}`)
         .then((res) => {
           console.log(res.data);
           setOnePage(res.data);
-          setPagination({ ...pagination, page: page });
+          setPagination(prevState => ({ ...prevState, page: pageQuery }));
         });
     } catch (error) {
       console.log(error);
     } 
-    // finally {
-    //   setLoading(false);
-    // }
-  }, [filters]);
+  }, [ pageQuery]);
 
   const onChangeOption = (selectedCompany) => {
      setOnePage();
-    // setLoading(true);
     console.log(selectedCompany);
     try {
       axiosInstance
@@ -88,16 +86,15 @@ export const Companies = () => {
     } catch (error) {
       console.log(error);
     } 
-    // finally {
-    //   setLoading(false);
-    // }
   };
 
   const handlePageChange = (newPage) => {
-    setFilters({
-      ...filters,
-      page: newPage,
-    });
+    // setFilters({
+    //   ...filters,
+    //   page: newPage,
+    // });
+    setPagination({...pagination, page : newPage})
+    history.push('/companies?page='+ newPage)
   };
 
   const handleSeclectedCompany = (companyName) => {
@@ -119,7 +116,7 @@ export const Companies = () => {
       {!onePage ? (
         <LoadingIndicator />
       ) : (
-        <>
+        <div >
           <Row style={{ height: "max-content", minHeight: "450px" }}>
             {onePage.map((company) => {
               return (
@@ -136,8 +133,8 @@ export const Companies = () => {
               );
             })}
           </Row>
-          <Pagination pagination={pagination} onPageChange={handlePageChange} />
-        </>
+          <Pagination  pagination={pagination} onPageChange={handlePageChange} />
+        </div>
       )}
     </Container>
   );

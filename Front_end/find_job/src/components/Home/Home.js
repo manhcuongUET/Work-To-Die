@@ -288,7 +288,7 @@ export const Home = () => {
               </span>
             </div>
           </div>
-          <Row>
+          <Row style={{marginBottom: "50px"}}>
             <div className="col-6">
               <div style={{ textAlign: "center" }}>
                 <img

@@ -13,10 +13,12 @@ export const CompanyInfo = () => {
   useEffect(() => {
     // setLoading(true);
     try {
-      axiosInstance.get(`/companies/info?name=${selectedCompany}`).then((res) => {
-        // console.log(res.data.jobs.length);
-        setInfo(res.data[0]);
-      });
+      axiosInstance
+        .get(`/companies/info?name=${selectedCompany}`)
+        .then((res) => {
+          // console.log(res.data.jobs.length);
+          setInfo(res.data[0]);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +35,7 @@ export const CompanyInfo = () => {
         <>
           <div className="info-container">
             <div className="top">
-              <img src="" />
+              <img src={`.${info.imgUrl}`} />
               <div className="description">
                 <div className="name">{info.name}</div>
                 <Row className="d-flex" style={{ height: "100px" }}>
@@ -46,7 +48,13 @@ export const CompanyInfo = () => {
                     <div>{info.field}</div>
                   </div>
                   <div className="col-1 des-title">Website:</div>
-                  <div className="col-5 des-text">{info.website}</div>
+                  <a href={info.website}
+                    className="col-5 des-text"
+                    style={{ wordBreak: "break-all" }}
+                    target="_blank"
+                  >
+                    {info.website}
+                  </a>
                 </Row>
               </div>
             </div>

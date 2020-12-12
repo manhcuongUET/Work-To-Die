@@ -9,7 +9,7 @@ import CompanyCtx from "./context/company";
 import { CompanyInfo } from "./components/Company/CompanyInfo";
 import "../src/css/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import { Jobs } from "./components/jobs/Jobs";
 import { JobDetail } from "./components/jobs/JobDetail";
 import { FillUpForm } from "./components/Resume/FillUpForm";
@@ -42,7 +42,7 @@ export const App = () => {
               <Nav.Link as={Link} to="/Jobs" className="mx-1">
                 Jobs
               </Nav.Link>
-              <Nav.Link as={Link} to="/companies" className="mx-1">
+              <Nav.Link as={Link} to="/companies?page=1" className="mx-1">
                 Companies
               </Nav.Link>
               <Nav.Link as={Link} to="/ResumeForm" className="mx-1">
@@ -83,7 +83,7 @@ export const App = () => {
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>
           <div className="aside-left">
-            <img src="./logo/company-1.png" />
+            <img src={"/logo/company-1.png"} />
             <p className="para-left">
               Find Jobs is the #1 recruitment platform in Asia helping companies
               build successful teams with young talent. Our mission is to help
