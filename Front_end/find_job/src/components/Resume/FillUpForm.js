@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Route } from "react-router-dom"
+import { Route , Link } from "react-router-dom"
 import "./fillUpForm.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Navbar, Form, Row, Col, InputGroup } from "react-bootstrap";
@@ -8,6 +8,8 @@ import axiosInstance from "../../utils/axios"
 
 
 export const FillUpForm = () => {
+
+
 
     const [isFormFillUp, setIsFormFillUp] = useState(false);
 
@@ -147,7 +149,6 @@ export const FillUpForm = () => {
                 skill2: skill2,
                 skill3: skill3,
             }
-            console.log(profile)
             axiosInstance.post("/profile" , profile)
             setIsFormFillUp(true)
         }
@@ -156,10 +157,16 @@ export const FillUpForm = () => {
     };
 
 
-
+      console.log(inputValue.email)
     return (
         <div style = {{backgroundImage: "url(" + "./image/hi.jpg" + ")" , 
-        marginTop: -30}}> {isFormFillUp ? <div>You have done it</div> : <div className="container">
+        marginTop: -30}}> {isFormFillUp ? <div style = {{marginTop : 100}}>You have done it, onClick
+
+            <Link to="/profile" params={{ email: inputValue.email }}>here</Link>to see your profile</div> 
+           
+           
+           : <div className="container">
+
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
                 <div className="title" style = {{paddingTop: 60}}>COMPLETE YOUR <span style={{ fontWeight: "bold" }}>RESUME HEADING</span></div>

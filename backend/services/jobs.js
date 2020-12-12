@@ -31,3 +31,9 @@ module.exports.getFieldJobs = async (field) => {
     const getJobs = await JobsRepo.getJobsWithField(field)
     return getJobs
 }
+
+module.exports.getJobsLocated = async (located,salary) => {
+    const getJobs = await JobsRepo.getJobsLocated(located,salary)
+    
+    return getJobs
+}

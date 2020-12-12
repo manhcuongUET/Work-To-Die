@@ -14,21 +14,26 @@ router.get("/all" , async(req , res) => {
 })
 
 router.get("/selected" , async(req , res) => {
-    console.log(req.query.id)
+    
     const jobs = await jobService.getSelectedJobs(req.query.id)
-    console.log("11234321")
-    console.log(jobs)
     res.json(jobs)
 })
 
 router.get("/jobDetail" , async(req , res) => {
-    console.log(req.query.job)
     const job = await jobService.getDetailJobs(req.query.job , req.query.companyName)
+    console.log("deo hieu ")
+    console.log(job)
     res.json(job)
 })
 
 router.get("/field" ,  async (req , res) => {
     const job = await jobService.getFieldJobs(req.query.field)
     res.json(job)
+})
+
+router.get("/located" , async (req , res) => {
+    const job = await jobService.getJobsLocated(req.query.located, req.query.salary)
+    res.json(job)
+    
 })
 module.exports = router

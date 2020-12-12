@@ -3,12 +3,6 @@ const db = require("./index")
 // lấy dữ liệu từ database xuống còn database đc connect ở index.js rồi
 exports.getJobs = async (skip, PAGE_SIZE) => {
 
-    console.log(1)
-    // const jobs = await db.jobs.find({})
-    // .skip(skip)
-    // .limit(PAGE_SIZE)
-    // .toArray()
-
 
     const jobs = await db.jobs.aggregate([
         {
@@ -21,7 +15,7 @@ exports.getJobs = async (skip, PAGE_SIZE) => {
         }
     ]).skip(skip).limit(PAGE_SIZE).toArray()
 
-    console.log(jobs)
+
     return jobs
 }
 
@@ -45,12 +39,12 @@ exports.getSelectedJobs = async (label) => {
         }
     ]).toArray()
     return jobs
-} 
+}
 
-exports.getJobDetail = async (job , companyName) => {
+exports.getJobDetail = async (job, companyName) => {
     const jobs = await db.jobs.aggregate([
         {
-            $match: { job: job , companyName : companyName }
+            $match: { job: job, companyName: companyName }
         },
         {
             $lookup: {
@@ -68,7 +62,7 @@ exports.getJobsWithField = async (field) => {
 
     const jobs = await db.jobs.aggregate([
         {
-            $match: { field : field }
+            $match: { field: field }
         },
         {
             $lookup: {
@@ -79,6 +73,69 @@ exports.getJobsWithField = async (field) => {
             }
         }
     ]).toArray()
-    
+
     return jobs
+}
+
+exports.getJobsLocated = async (located, salary) => {
+    if (located.localeCompare("vietnam") != 0 && parseInt(salary) === 0) {
+       
+        const jobs = await db.jobs.aggregate([
+            {
+                $lookup: {
+                    from: "companies",
+                    localField: "companyName",
+                    foreignField: "name",
+                    as: "company"
+                }
+            },
+            {
+                $match: {
+                    company: { $elemMatch: { location: located } }
+                }
+            }
+        ]).toArray()
+        return jobs
+    }
+
+    if (located.localeCompare("vietnam") == 0 && salary > 0) {
+        const jobs = await db.jobs.aggregate([
+            {
+                $lookup: {
+                    from: "companies",
+                    localField: "companyName",
+                    foreignField: "name",
+                    as: "company"
+                }
+            },
+            {
+                $match: {
+                    salary : {$lt : parseInt(salary)}
+                }
+            }
+        ]).toArray()
+        return jobs
+    }
+
+    if (located.localeCompare("vietnam") != 0 && salary > 0) {
+        const jobs = await db.jobs.aggregate([
+            {
+                $lookup: {
+                    from: "companies",
+                    localField: "companyName",
+                    foreignField: "name",
+                    as: "company"
+                }
+            },
+            {
+                $match: {
+                    salary : {$lt : parseInt(salary)},
+                    company: { $elemMatch: { location: located } }
+                }
+            }
+        ]).toArray()
+        return jobs
+    }
+
+    
 }

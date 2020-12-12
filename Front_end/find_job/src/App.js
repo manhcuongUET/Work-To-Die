@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, useHistory, Link } from "react-router-dom";
+import { Route, useHistory, Link  } from "react-router-dom";
 import { Nav, Navbar, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Auth} from "./components/Auth"
@@ -29,11 +29,14 @@ export const App = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/Profile" className="mx-1">
+              <Nav.Link as={Link} to="/Jobs" className="mx-1">
                 Jobs
               </Nav.Link>
               <Nav.Link as={Link} to="/companies" className="mx-1">
                 Companies
+              </Nav.Link>
+              <Nav.Link as={Link} to="/ResumeForm" className="mx-1">
+                Create your profile
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
@@ -56,8 +59,8 @@ export const App = () => {
         <Route path="/Jobs" component={Jobs} />
         <Route path="/JobDetail" component={JobDetail} />
         <Route path="/ResumeForm" component={FillUpForm} />
-        <Route path="/Profile" component={Profile} />
         <Route path="/auth" component={Auth}/>
+        <Route  path = "/profile" component = {Profile}/>
       </>
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>

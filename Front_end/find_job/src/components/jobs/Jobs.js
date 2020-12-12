@@ -14,9 +14,13 @@ import axiosInstance from "../../utils/axios"
 export const Jobs = () => {
 
 
-    const [allJobs , setAllJobs] = useState([])
+    const [allJobs, setAllJobs] = useState([])
     const [loading, setLoading] = useState(true);
     const [onePage, setOnePage] = useState([]);
+    const [located, setLocated] = useState("vietnam")
+    const [salary, setSalary] = useState(0)
+    const [isFilled, setIsFilled] = useState(false)
+
     const [pagination, setPagination] = useState({
         limit: 6,
         page: 1,
@@ -27,7 +31,87 @@ export const Jobs = () => {
         page: 1,
     });
 
-    
+    const handleFilterLocation = async (e) => {
+        const { name, value } = e.target
+        setLocated(value)
+    }
+
+    useEffect(() => {
+        setOnePage([])
+
+        setFilters({
+            ...filters,
+            page: 1
+        })
+        if (located.localeCompare("vietnam") != 0 || salary > 0) {
+            axiosInstance.get(`/jobs/located?located=${located}&salary=${salary}`).then((res) => {
+                setIsFilled(true)
+                console.log(res.data)
+                setOnePage(res.data)
+            })
+        }
+        else {
+            setLoading(true)
+            const { limit, page } = filters
+            try {
+                axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
+                    setOnePage([...onePage, ...res.data])
+                    setPagination({ ...pagination, page: page })
+                })
+            } finally {
+                setLoading(false)
+
+            }
+        }
+
+    }, [located])
+
+    const handleFilterSalary = (e) => {
+        const { name, value } = e.target
+        setSalary(value)
+    }
+
+    useEffect(() => {
+        setOnePage([])
+
+        setFilters({
+            ...filters,
+            page: 1
+        })
+
+        if (located.localeCompare("vietnam") != 0 || salary > 0) {
+            axiosInstance.get(`/jobs/located?located=${located}&salary=${salary}`).then((res) => {
+                setIsFilled(true)
+                console.log(res.data)
+                setOnePage(res.data)
+            })
+        }
+        else {
+            setLoading(true)
+            const { limit, page } = filters
+            try {
+                axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
+                    setOnePage([...onePage, ...res.data])
+                    setPagination({ ...pagination, page: page })
+                })
+            } finally {
+                setLoading(false)
+
+            }
+        }
+
+    }, [salary])
+
+    const closeLocated = () => {
+        setLocated("vietnam")
+    }
+
+    const closeSalary = () => {
+        setSalary(0)
+    }
+    const reset = () => {
+        window.location.reload()
+    }
 
     const handlePageChange = (page) => {
         setFilters({
@@ -37,7 +121,7 @@ export const Jobs = () => {
     }
 
     const option = allJobs.map((job) => {
-        return {label : job.job , value: job._id , field: job.field}
+        return { label: job.job, value: job._id, field: job.field }
     })
 
     // componentDidUpdate
@@ -58,11 +142,11 @@ export const Jobs = () => {
     }, [])
 
     useEffect(() => {
+
         setLoading(true)
         const { limit, page } = filters
         try {
             axiosInstance.get(`/jobs?limit=${limit}&page=${page}`).then((res) => {
-                console.log(res.data)
                 setOnePage([...onePage, ...res.data])
                 setPagination({ ...pagination, page: page })
             })
@@ -71,8 +155,10 @@ export const Jobs = () => {
 
         }
     }, [filters])
+
     const getData = () => {
         let length = onePage.length
+        console.log(length)
         let jobRender = [];
 
         for (let i = 0; i < length; i++) {
@@ -80,8 +166,8 @@ export const Jobs = () => {
                 location={onePage[i].company[0].location}
                 job={onePage[i].job}
                 companyName={onePage[i].companyName}
-                website = {onePage[i].company[0].website}
-                img = {onePage[i].company[0].imgUrl}
+                website={onePage[i].company[0].website}
+                img={onePage[i].company[0].imgUrl}
                 updateTime={onePage[i].timePost} /></Col>
         }
         return jobRender
@@ -104,9 +190,9 @@ export const Jobs = () => {
                 </div> */}
                 <Col lg={{ span: 8, offset: 2 }} md={{ span: 12, offset: 0 }}>
                     <Select
-                        options = {option}
+                        options={option}
                         placeholder="Select jobs you want."
-                        onChange = {oneChangeOption}
+                        onChange={oneChangeOption}
                         style={{}}
                         className="my-5"
                     />
@@ -114,18 +200,18 @@ export const Jobs = () => {
                 </Col>
                 <div className="filterGroup">
                     <Form.Group controlId="exampleForm.ControlSelect1" className="filter">
-                        <Form.Control as="select" className="filterDetail">
-                            <option value="hanoi">Hanoi</option>
-                            <option value="danang">Danang</option>
-                            <option value="hcm">HCM City</option>
+                        <Form.Control as="select" className="filterDetail" name="location" onChange={handleFilterLocation} >
+                            <option value="vietnam">Vietnam</option>
+                            <option value="Hanoi, Vietnam">Hanoi</option>
+                            <option value="Ho Chi Minh City, Vietnam">Ho Chi Minh City</option>
 
                         </Form.Control>
-                        <Form.Control as="select" className="filterDetail">
-                            <option>Up to 700$</option>
-                            <option>Up to 1000$</option>
-                            <option>Up to 1200$</option>
-                            <option>Up to 1500$</option>
-                            <option>Up to 1500$</option>
+                        <Form.Control as="select" className="filterDetail" name="salary" onChange={handleFilterSalary}>
+                            <option value={0}>No limit</option>
+                            <option value={700}>Up to 700$</option>
+                            <option value={1000}>Up to 1000$</option>
+                            <option value={1200}>Up to 1200$</option>
+                            <option value={1500}>Up to 1500$</option>
                         </Form.Control>
                     </Form.Group>
                 </div>
@@ -133,8 +219,11 @@ export const Jobs = () => {
             <div className="filterList">
                 <div className="filterWrap">
                     <div className="filterTitle"><FontAwesomeIcon icon={faFilter} className="filterFont" size="2x" />Filter:</div>
-                    <div className="filterName">Hanoi <FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" /></div>
-                    <div className="filterName">Up to 3000$ <FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" /></div>
+                    {located.localeCompare("vietnam") == 0 ? null : <div className="filterName">{located}<FontAwesomeIcon icon={faTimes}  className="closeFont" size="2x" onClick = {closeLocated} /></div>}
+
+                    {salary === 0 ? null : <div className="filterName">Up to {salary}$ <FontAwesomeIcon icon={faTimes} className="closeFont" size="2x" onClick = {closeSalary} /></div>}
+
+                    <div className="filterName" style={{ color: "red" }}>Reset <FontAwesomeIcon onClick={reset} icon={faTimes} className="closeFont" size="2x" /></div>
                 </div>
 
             </div>
@@ -156,7 +245,8 @@ export const Jobs = () => {
                     {loading ? <div>Loadingg...</div> : getData()}
                 </Row>
 
-                <Next pagination={pagination} onPageChange={handlePageChange} />
+                {located.localeCompare("vietnam") == 0 && salary == 0 ? <Next pagination={pagination} onPageChange={handlePageChange} /> : null}
+
             </div>
         </div>
 
