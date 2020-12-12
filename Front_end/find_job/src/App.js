@@ -21,10 +21,16 @@ export const App = () => {
 
   return (
     <div className="App">
-      <Navbar bg="light" expand="lg">
+      <Navbar  expand="lg" style={{backgroundColor: "#ffffff", borderBottom:"1px solid #333333"}}>
         <Container>
           <Navbar.Brand as={Link} to="/">
-            Find Job
+          <img
+        src="/find_jobs.png"
+        width="200"
+        height="50"
+        className="d-inline-block align-top"
+        alt="React Bootstrap logo"
+      />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -52,7 +58,7 @@ export const App = () => {
       </Navbar>
       <>
         <Route exact path="/" component={Home} />
-        <CompanyCtx.Provider value={(selectedCompany, setSelectedCompany)}>
+        <CompanyCtx.Provider value={{selectedCompany, setSelectedCompany}}>
           <Route exact path="/companies" component={Companies} />
           <Route path="/companies/info" component={CompanyInfo} />
         </CompanyCtx.Provider>
@@ -67,13 +73,13 @@ export const App = () => {
           <div className="aside-left">
             <img src="./logo/company-1.png" />
             <p className="para-left">
-              Glints is the #1 recruitment platform in Asia helping companies
+              Find Jobs is the #1 recruitment platform in Asia helping companies
               build successful teams with young talent. Our mission is to help
               companies hire the right young talent effectively, and for young
               people to discover and develop careers they love.
             </p>
             <p>
-              © 2020 Glints Intern Pte Ltd & Glints Singapore Pte Ltd<br></br>
+              © 2020 Find Jobs Intern Pte Ltd & Find Jobs Vietnam Pte Ltd<br></br>
               EA Licence No: 16C7981
             </p>
           </div>
@@ -81,8 +87,8 @@ export const App = () => {
           <div className="each-col px-0">
             <div className="title-right">Company</div>
             <div className="detail-right">About us</div>
-            <div className="detail-right"> Hired Blog</div>
-            <div className="detail-right">Inside Glints</div>
+            <div className="detail-right">Hired Blog</div>
+            <div className="detail-right">Inside FInd Jobs</div>
             <div className="detail-right">Careeers</div>
             <div className="detail-right">Terms&Conditions</div>
           </div>
@@ -95,7 +101,7 @@ export const App = () => {
           <div className="each-col px-0">
             <div className="title-right">BUSINESS SOLUTIONS</div>
             <div className="detail-right">For Employers</div>
-            <div className="detail-right">Glints Platform</div>
+            <div className="detail-right">Find Jobs Platform</div>
             <div className="detail-right">TalentHunt</div>
             <div className="detail-right">TalentHub</div>
           </div>

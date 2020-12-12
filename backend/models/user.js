@@ -30,7 +30,7 @@ class User {
       .toString("hex");
     return this.password === hashedPassword;
   }
-  generateToken(jwt) {
+  generateToken() {
     return jwt.sign({username: this.username}, MY_SECRET_JWT_KEY, {
       expiresIn: 3600,
     });
