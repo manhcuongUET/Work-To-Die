@@ -10,8 +10,8 @@ client.connect().then((connectedClient) => {
   db.companies = database.collection("companies");
 
   const database1 = connectedClient.db("test");
-  db.jobs = database1.collection("Info");
-  db.profiles = database1.collection("profile");
+  db.jobs = database.collection("jobs");
+  db.profiles = database.collection("profile");
 
   db.users = database.collection("users");
 });

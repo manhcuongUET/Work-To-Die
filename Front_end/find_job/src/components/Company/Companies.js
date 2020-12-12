@@ -6,11 +6,11 @@ import Select from "react-select";
 import { RadioButton } from "../../share/RadioButton";
 import axiosInstance from "../../utils/axios";
 import { Pagination } from "./Pagination";
-import CompanyCtx from "../../context/company";
+import companyContext from "../../context/company";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
 
 export const Companies = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [onePage, setOnePage] = useState();
   const [pagination, setPagination] = useState({
@@ -23,7 +23,7 @@ export const Companies = () => {
     page: 1,
   });
 
-  const { selectedCompany, setSelectedCompany } = useContext(CompanyCtx);
+  const { selectedCompany, setSelectedCompany } = useContext(companyContext);
 
   const options = companies.map((company) => {
     return { label: company.name, value: company._id };
@@ -100,9 +100,8 @@ export const Companies = () => {
     });
   };
 
-  const handleSeclectedCompany = (companyId) => {
-    // setSelectedCompany(companyId);
-    // console.log(selectedCompany);
+  const handleSeclectedCompany = (companyName) => {
+     setSelectedCompany(companyName)
   };
 
   return (
