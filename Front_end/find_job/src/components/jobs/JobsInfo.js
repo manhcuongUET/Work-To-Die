@@ -1,15 +1,15 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavDropdown, Nav, Button, Navbar, Form } from "react-bootstrap";
+// import { NavDropdown, Nav, Button, Navbar, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./JobsInfo.css"
 import { faBookmark, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
 export const JobsInfo = (props) => {
-    const { id ,job, companyName, location, updateTime } = props
+    const { id ,job, companyName, location, updateTime , img } = props
     return (
         <div className="frame">
             <div className="info">
-                <img src="./image/test.png" alt="" className="logo" />
+                <img src={img} alt="" className="logo" />
                 <div className="detail">
                     <div className="carrer">{job}</div>
                     <div className="companyName">{companyName}</div>

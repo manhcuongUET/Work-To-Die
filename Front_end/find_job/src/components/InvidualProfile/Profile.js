@@ -4,6 +4,8 @@ import "./blue.css"
 import axiosInstance from "../../utils/axios"
 export const Profile = (props) => {
 
+    console.log(props.email)
+
     const [data, setData] = useState()
 
     const convertLevel = (g) => {
@@ -16,18 +18,16 @@ export const Profile = (props) => {
     }
 
 
-    const a = {
-        email: "veverv"
-    }
-
     useEffect(() => {
-        axiosInstance.get(`/profile?email=${a.email}`).then(res => {
+        axiosInstance.get(`/profile?email=${props.email}`).then(res => {
             console.log(res.data)
             setData(res.data);
             console.log(data)
         })
 
     }, [])
+
+
 
     return (
         <div> {data ? <div><div class="Profile" style={{
@@ -57,7 +57,7 @@ export const Profile = (props) => {
 
 
                                 <div className="self">
-                                    <h1 className="name" >{data.fisrtName + " " + data.lastName}<br />
+                                    <h1 className="name1" >{data.fisrtName + " " + data.lastName}<br />
                                         <span style={{ marginTop: "5px" }}>{data.major}</span></h1>
                                     <ul>
                                         <li className="ad" style={{

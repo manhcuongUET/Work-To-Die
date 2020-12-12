@@ -18,7 +18,7 @@ router.post("/sign-in", async (req, res) => {
     const { jwt, user } = await AuthService.signIn(username, password);
     res.json({
       jwt: jwt,
-      user: user.toJson,
+      user: user.toJson(),
     });
   } catch (err) {
     res.status(401).send(err.message);
