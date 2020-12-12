@@ -8,15 +8,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row } from "react-bootstrap";
 import "../../css/company.css";
-import CompanyCtx from "../../context/company";
 import { useHistory } from "react-router-dom";
 
 export const CompanyCard = (props) => {
   const { id, imgUrl, name, location, field, jobs, onSelectedCompany } = props;
-  const { selectedCompany, setSelectedCompany } = useContext(CompanyCtx);
   const history = useHistory();
 
   const handleSeclectedCompany = () => {
+    onSelectedCompany(name);
     history.push("/companies/info");
   };
 

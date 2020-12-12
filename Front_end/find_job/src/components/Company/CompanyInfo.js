@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import "../../css/companyInfo.css";
 import axiosInstance from "../../utils/axios";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
+import companyContext from "../../context/company";
 
 export const CompanyInfo = () => {
   const [info, setInfo] = useState();
-  const [loading, setLoading] = useState(false);
-  const name = "FireGroup Technology";
+  // const [loading, setLoading] = useState(false);
+  const { selectedCompany, setSelectedCompany } = useContext(companyContext);
+  // const name = setSelectedCompany;
   useEffect(() => {
     // setLoading(true);
     try {
-      axiosInstance.get(`/companies/info?name=${name}`).then((res) => {
+      axiosInstance.get(`/companies/info?name=${selectedCompany}`).then((res) => {
         // console.log(res.data.jobs.length);
         setInfo(res.data[0]);
       });
