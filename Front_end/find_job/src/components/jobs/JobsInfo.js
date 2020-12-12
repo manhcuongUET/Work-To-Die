@@ -1,6 +1,6 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavDropdown, Nav, Button, Navbar, Form } from "react-bootstrap";
+// import { NavDropdown, Nav, Button, Navbar, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./JobsInfo.css"
 import { faBookmark, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';

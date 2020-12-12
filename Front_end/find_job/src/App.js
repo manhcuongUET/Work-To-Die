@@ -9,7 +9,7 @@ import CompanyCtx from "./context/company";
 import { CompanyInfo } from "./components/Company/CompanyInfo";
 import "../src/css/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import { Jobs } from "./components/jobs/Jobs";
 import { JobDetail } from "./components/jobs/JobDetail";
 import { FillUpForm } from "./components/Resume/FillUpForm";
