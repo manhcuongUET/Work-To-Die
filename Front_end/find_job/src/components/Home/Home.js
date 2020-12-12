@@ -81,11 +81,11 @@ export const Home = () => {
       <Row
         style={{
           height: "400px",
-          backgroundImage: "./home/home-1.jpg",
+         
           marginTop: "30px",
         }}
       >
-        <div className="col-6">
+        <div className="col-6" style={{ backgroundImage: "url(" + "./home/home-1.jpg" + ")",}}>
           <h1 style={{ width: "300px", fontSize: "40px" }}>
             JOIN A COMMUNITY OF{" "}
             <span style={{ color: "rgb(236, 39, 43)" }}>1,000,000+</span> YOUNG

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, useHistory, Link } from "react-router-dom";
 import { Nav, Navbar, Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {Auth} from "./components/Auth"
 import { Companies } from "./components/Company/Companies";
 import { Home } from "./components/Home/Home";
 import CompanyCtx from "./context/company";
@@ -23,7 +24,7 @@ export const App = () => {
       <Navbar bg="light" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">
-            React-Bootstrap
+            Find Job
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -34,20 +35,18 @@ export const App = () => {
               <Nav.Link as={Link} to="/companies" className="mx-1">
                 Companies
               </Nav.Link>
-              <Nav.Link as={Link} to="/auth/sign-up" className="mx-1">
-                SIGN IN
-              </Nav.Link>
-              <Nav.Link as={Link} to="/auth/sign-in" className="mx-1">
-                SIGN UP
-              </Nav.Link>
+            </Nav>
+            <Nav className="ml-auto">
+                <Nav.Link as={Link} to="/auth/sign-up" className="mx-1">
+                  SIGN UP
+                </Nav.Link>
+                <Nav.Link as={Link} to="/auth/sign-in" className="mx-1">
+                  SIGN IN
+                </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-      {/* <Route component={Jobs} />
-      <Route component={Companies} />
-      <Route component={Auth} /> */}
       <>
         <Route exact path="/" component={Home} />
         <CompanyCtx.Provider value={(selectedCompany, setSelectedCompany)}>
@@ -58,11 +57,12 @@ export const App = () => {
         <Route path="/JobDetail" component={JobDetail} />
         <Route path="/ResumeForm" component={FillUpForm} />
         <Route path="/Profile" component={Profile} />
+        <Route path="/auth" component={Auth}/>
       </>
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>
           <div className="aside-left">
-            <img src="./static/uet-logo.png" />
+            <img src="./logo/company-1.png" />
             <p className="para-left">
               Glints is the #1 recruitment platform in Asia helping companies
               build successful teams with young talent. Our mission is to help

@@ -6,6 +6,9 @@ router.get("/", async (req, res) => {
     console.log(req.query);
 
     const result = await CompaniesService.getCompanies(req.query);
+    if(req.query.name){
+      console.log(result);
+    }
     res.json(result);
   
 });

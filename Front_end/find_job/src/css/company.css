@@ -12,6 +12,7 @@
     margin-bottom: 5px;
     height: 45px;
     width: calc(100% - 12px);
+    overflow: hidden;
 }
 .cpn-container{
     height: 200px;
@@ -26,4 +27,14 @@
 }
 .cpn-container:hover .name{
     color: rgb(1, 126, 183)
-} 
+}
+.active{
+    font-size:15px;
+    height: 15px;
+    color: rgb(1, 126, 183);
+}
+.no-active{
+    font-size:15px;
+    height: 15px;
+    color: rgb(119, 119, 119)
+}
