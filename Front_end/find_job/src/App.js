@@ -68,7 +68,7 @@ export const App = () => {
       <div className="footer">
         <Container className="d-flex" style={{ height: "max-content" }}>
           <div className="aside-left">
-            <img src="./logo/company-1.png" />
+            <img src={"/logo/company-1.png"} />
             <p className="para-left">
               Find Jobs is the #1 recruitment platform in Asia helping companies
               build successful teams with young talent. Our mission is to help
