@@ -48,12 +48,13 @@ export const CompanyInfo = () => {
                     <div>{info.field}</div>
                   </div>
                   <div className="col-1 des-title">Website:</div>
-                  <div
+                  <a href={info.website}
                     className="col-5 des-text"
                     style={{ wordBreak: "break-all" }}
+                    target="_blank"
                   >
                     {info.website}
-                  </div>
+                  </a>
                 </Row>
               </div>
             </div>

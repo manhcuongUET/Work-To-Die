@@ -9,7 +9,7 @@ export const LoadingIndicator = () => {
       className="d-flex flex-column align-items-center justify-content-center"
       style={{ height: "250px" }}
     >
-      <FontAwesomeIcon icon={faSpinner} spin />
+      <FontAwesomeIcon icon={faSpinner} spin size="2x"/>
       
     </div>
   );

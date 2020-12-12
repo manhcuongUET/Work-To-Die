@@ -38,7 +38,7 @@ export const App = () => {
               <Nav.Link as={Link} to="/Jobs" className="mx-1">
                 Jobs
               </Nav.Link>
-              <Nav.Link as={Link} to="/companies" className="mx-1">
+              <Nav.Link as={Link} to="/companies?page=1" className="mx-1">
                 Companies
               </Nav.Link>
               <Nav.Link as={Link} to="/ResumeForm" className="mx-1">

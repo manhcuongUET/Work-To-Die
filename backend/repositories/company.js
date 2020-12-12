@@ -1,7 +1,16 @@
 const db = require("./index");
 
 exports.getCompanies = async () => {
-  const companies = await db.companies.find({}).toArray();
+  const companies = await db.companies
+    .aggregate([
+      {
+        $project: {
+          name: 1,
+          _id: 1,
+        },
+      },
+    ])
+    .toArray();
   return companies;
 };
 
@@ -39,26 +48,26 @@ exports.getSelectedCompany = async (name) => {
         },
       },
     ])
-    .toArray()
+    .toArray();
   return selectedCompany;
 };
 
 exports.getInfo = async (name) => {
   const info = await await db.companies
-  .aggregate([
-    {
-      $match: { name: `${name}` },
-    },
-    {
-      $lookup: {
-        from: "jobs",
-        localField: "name",
-        foreignField: "companyName",
-        as: "jobs",
+    .aggregate([
+      {
+        $match: { name: `${name}` },
       },
-    },
-  ])
-  .toArray()
+      {
+        $lookup: {
+          from: "jobs",
+          localField: "name",
+          foreignField: "companyName",
+          as: "jobs",
+        },
+      },
+    ])
+    .toArray();
   return info;
 };
 
