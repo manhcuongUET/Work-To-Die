@@ -4,17 +4,18 @@ import "../../css/companyInfo.css";
 import axiosInstance from "../../utils/axios";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
 import companyContext from "../../context/company";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const CompanyInfo = () => {
   const [info, setInfo] = useState();
-  // const [loading, setLoading] = useState(false);
-  const { selectedCompany, setSelectedCompany } = useContext(companyContext);
-  // const name = setSelectedCompany;
+  const location = useLocation();
+
+  // const { selectedCompany, setSelectedCompany } = useContext(companyContext);
+
   useEffect(() => {
-    // setLoading(true);
     try {
       axiosInstance
-        .get(`/companies/info?name=${selectedCompany}`)
+        .get(`/companies/info${location.search}`)
         .then((res) => {
           // console.log(res.data.jobs.length);
           setInfo(res.data[0]);
@@ -22,9 +23,6 @@ export const CompanyInfo = () => {
     } catch (error) {
       console.log(error);
     }
-    // finally {
-    //   setLoading(false);
-    // }
   }, []);
 
   return (
@@ -48,7 +46,8 @@ export const CompanyInfo = () => {
                     <div>{info.field}</div>
                   </div>
                   <div className="col-1 des-title">Website:</div>
-                  <a href={info.website}
+                  <a
+                    href={info.website}
                     className="col-5 des-text"
                     style={{ wordBreak: "break-all" }}
                     target="_blank"
@@ -69,14 +68,6 @@ export const CompanyInfo = () => {
                 </div>
                 <div className="card-deco">
                   <div className="card-title">Jobs</div>
-                  {/* <div className="job">
-                    <div className="job-name">Computer Vision Engineer</div>
-                    <div className="des-title">Ha Noi</div>
-                  </div>
-                  <div className="job">
-                    <div className="job-name">Computer Vision Engineer</div>
-                    <div className="des-title">Ha Noi</div>
-                  </div> */}
                   {info.jobs.length === 0 ? (
                     <div className="no-job">
                       There are no jobs by this company at the moment. Please

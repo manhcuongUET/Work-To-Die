@@ -11,12 +11,11 @@ import "../../css/company.css";
 import { useHistory } from "react-router-dom";
 
 export const CompanyCard = (props) => {
-  const { id, imgUrl, name, location, field, jobs, onSelectedCompany } = props;
+  const { id, imgUrl, name, location, field, jobs } = props;
   const history = useHistory();
 
   const handleSeclectedCompany = () => {
-    onSelectedCompany(name);
-    history.push("/companies/info");
+    history.push(`/companies/info?name=` + name);
   };
 
   return (
