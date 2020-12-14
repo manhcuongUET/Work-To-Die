@@ -222,6 +222,8 @@ export const Jobs = () => {
     return (
         <div>
 
+          
+
             <Form className="mt-5 w-100">
 
                 {/* <div className="d-flex w-100 justify-content-center">
@@ -283,15 +285,15 @@ export const Jobs = () => {
                     </Form.Group>
                 </div>
             </div>
-            <div className="containerr">
+            <div className="containerr" style = {{marginBottom: 100}}>
                 <Row className="roww">
                     {onePage.length == 0 ? <LoadingSign text="Loading" /> : getData()}
+                    
                 </Row>
-
                 <div>
-                    {located.localeCompare("vietnam") == 0 && salary == 0 ? <Next pagination={pagination} onPageChange={handlePageChange} /> : null}
+                    {located.localeCompare("vietnam") == 0 && salary == 0 ? <Next style = {{marginBottom: 1000}} pagination={pagination} onPageChange={handlePageChange} /> : null}
                 </div>
-
+            
 
             </div>
         </div>

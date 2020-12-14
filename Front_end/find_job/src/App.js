@@ -16,6 +16,7 @@ import { FillUpForm } from "./components/Resume/FillUpForm";
 import { Profile } from "./components/InvidualProfile/Profile";
 import jobContext from "./context/job"
 import resumeMailContext from "./context/resumeMail"
+import { SeeApply } from "./components/Employers/seeApply";
 
 
 export const App = () => {
@@ -75,9 +76,12 @@ export const App = () => {
         <resumeMailContext.Provider value = {{resumeMail , setResumeMail}}>
           <Route path="/ResumeForm" component={FillUpForm} />
           <Route path="/profile" component={Profile} />
+          <Route path = "/see-apply" component = {SeeApply} />
         </resumeMailContext.Provider>
         
         <Route path="/auth" component={Auth} />
+
+       
        
       </>
       <div className="footer">

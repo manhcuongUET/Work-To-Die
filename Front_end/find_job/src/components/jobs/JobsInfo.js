@@ -31,7 +31,6 @@ export const JobsInfo = (props) => {
                 <div className="timeUpdated">{updateTime}</div>
 
             </div>
-            <div>{salary}</div>
         </div>
     )
 }

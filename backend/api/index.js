@@ -4,6 +4,7 @@ const jobsRouter = require("./jobs");
 const profile = require("./profile");
 const authRouter = require("./auth")
 const apply = require("./apply")
+const getApply = require("./getApply")
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.use("/jobs", jobsRouter);
 router.use("/profile", profile);
 router.use("/auth", authRouter);
 router.use("/apply" , apply )
+router.use("/getApply" , getApply)
 
 module.exports = router;
