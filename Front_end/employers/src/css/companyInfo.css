@@ -1,0 +1,67 @@
+.info-container{
+    border: 1px solid rgb(221, 221, 221);
+    height: 340px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 4px 0px;
+}
+.info-container .top{
+    border-bottom: 1px solid rgb(221, 221, 221);
+    height: 200px;
+    display: flex;
+    padding-bottom: 20px
+}
+.info-container .top img{
+    height:180px;
+    width:180px;
+}
+.info-container .description{
+    flex-grow: 1;
+    padding-left: 30px;
+}
+.info-container .description .name{
+    font-size: 30px;
+    font-weight: 800;
+    height: 100px;
+}
+.des-text{
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0px;
+}
+.des-title{
+    color: rgb(119, 119, 119);
+}
+.card-deco{
+    border: 1px solid rgb(221, 221, 221);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 4px 0px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.card-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+.card-deco p{
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    padding-top: 20px;
+}
+.card-deco .job{
+    border-bottom: 1px solid rgb(221, 221, 221);
+    height: max-content;
+    padding: 10px 0px
+}
+.card-deco .job-name{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22.4px;
+    color: rgb(1, 126, 183);
+}
+.no-job{
+    font-size: 14px;
+    padding: 10px 0px 30px 0px;
+
+}

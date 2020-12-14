@@ -1,0 +1,40 @@
+.location {
+    font-size: 14px;
+    color: rgb(119, 119, 119)
+}
+.imgUrl{
+    width: 60px;
+    height: 60px;
+}
+.name{  
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 5px;
+    height: 45px;
+    width: calc(100% - 12px);
+    overflow: hidden;
+}
+.cpn-container{
+    height: 200px;
+    border: 1px solid rgb(198, 198, 198);
+    border-radius: 3px;
+   
+    cursor: pointer;
+}
+.cpn-container:hover{
+    border: 1px solid #333333;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.cpn-container:hover .name{
+    color: rgb(1, 126, 183)
+}
+.active{
+    font-size:15px;
+    height: 15px;
+    color: rgb(1, 126, 183);
+}
+.no-active{
+    font-size:15px;
+    height: 15px;
+    color: rgb(119, 119, 119)
+}
