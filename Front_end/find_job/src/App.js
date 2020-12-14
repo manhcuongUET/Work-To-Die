@@ -64,7 +64,7 @@ export const App = () => {
   const handleClick = () => {
     history.push("/HomeEmployers");
   };
-
+// bat mic a oi
   const handleClickSignOut = () => {
     localStorage.clear();
     window.location.href = "/";
