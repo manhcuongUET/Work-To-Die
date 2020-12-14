@@ -34,7 +34,7 @@ import {SeeApply} from "./components/Employers/seeApply"
 
 export const App = () => {
   const history = useHistory();
-  const [selectedCompany, setSelectedCompany] = useState(null);
+  // const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
   const [selectedJob, setSelectedJob] = useState({})
@@ -136,12 +136,12 @@ export const App = () => {
                   {" "}
                   <Route path="/auth" component={Auth} />
                   <Route exact path="/" component={Home} />
-                  <CompanyCtx.Provider
+                  {/* <CompanyCtx.Provider
                     value={{ selectedCompany, setSelectedCompany }}
-                  >
+                    >
+                    </CompanyCtx.Provider> */}
                     <Route exact path="/companies" component={Companies} />
                     <Route path="/companies/info" component={CompanyInfo} />
-                  </CompanyCtx.Provider>
                   <jobContext.Provider value={{ selectedJob, setSelectedJob }}>
                     <Route path="/Jobs" component={Jobs} />
                     <Route path="/JobDetail" component={JobDetail} />
@@ -268,12 +268,12 @@ export const App = () => {
                   {" "}
                   <Route path="/auth" component={Auth} />
                   <Route exact path="/" component={Home} />
-                  <CompanyCtx.Provider
+                  {/* <CompanyCtx.Provider
                     value={{ selectedCompany, setSelectedCompany }}
                   >
+                  </CompanyCtx.Provider> */}
                     <Route exact path="/companies" component={Companies} />
                     <Route path="/companies/info" component={CompanyInfo} />
-                  </CompanyCtx.Provider>
                   <jobContext.Provider value={{ selectedJob, setSelectedJob }}>
                     <Route path="/Jobs" component={Jobs} />
                     <Route path="/JobDetail" component={JobDetail} />

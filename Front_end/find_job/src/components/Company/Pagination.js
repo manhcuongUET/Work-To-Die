@@ -5,7 +5,7 @@ import {} from "@fortawesome/free-solid-svg-icons";
 export const Pagination = (props) => {
   const { pagination, onPageChange } = props;
   const { page, limit, totalCompanies } = pagination;
-  console.log(pagination)
+  // console.log(pagination)
   const totalPages = Math.ceil(totalCompanies / limit);
 
   const handlePageChange = (newPage) => {
