@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { Route } from "react-router";
 import { SignInEmployers } from "./SignIn";
 import { SignUpEmployers } from "./SignUp";
-import { useContext } from "react";
 
 export const AuthEmployers = () => {
 //   const history = useHistory();
