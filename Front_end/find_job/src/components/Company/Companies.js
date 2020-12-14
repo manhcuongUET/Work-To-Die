@@ -1,39 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useHistory, useLocation } from 'react-router-dom'
-
+import { useHistory, useLocation } from "react-router-dom";
 import { CompanyCard } from "./CompanyCard";
 import Select from "react-select";
-import { RadioButton } from "../../share/RadioButton";
 import axiosInstance from "../../utils/axios";
 import { Pagination } from "./Pagination";
 import companyContext from "../../context/company";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
+import queryString from "query-string";
 
 export const Companies = () => {
   const history = useHistory();
   const location = useLocation();
-  const pageQuery = parseInt(location.search.slice(6))
-  console.log(pageQuery)
+  const parsed = queryString.parse(location.search);
   const [companies, setCompanies] = useState([]);
   const [onePage, setOnePage] = useState();
+  // const [value, setValue] = useState("");
   const [pagination, setPagination] = useState({
     limit: 6,
     page: 1,
     totalCompanies: 1,
   });
-  // const [filters, setFilters] = useState({
-  //   limit: 6,
-  //   page: 1,
-  // });
 
-  const { selectedCompany, setSelectedCompany } = useContext(companyContext);
-
+  
   const options = companies.map((company) => {
     return { label: company.name, value: company._id };
   });
-
+  
   //lay danh sach cong ty vao options
   //componentDidMount
   useEffect(() => {
@@ -43,64 +37,45 @@ export const Companies = () => {
         console.log(_totalCompanies);
         setPagination({
           ...pagination,
-          totalCompanies: _totalCompanies
+          totalCompanies: _totalCompanies,
         });
         setCompanies(res.data);
       });
     } catch (error) {
       console.log(error);
-    } 
+    }
   }, []);
-
+  
   //compomentDidUpdate
-
-  //load page theo tung trang
   useEffect(() => {
-    // const {page, limit} = filters;
-    const {limit} = pagination
-    // console.log('filters', filters)
-    setOnePage()
-    try {
+    const { limit } = pagination;
+    setOnePage();
+    if (parsed.page) {
+      const _page = parseInt(parsed.page);
       axiosInstance
-        .get(`/companies?limit=${limit}&page=${pageQuery}`)
-        .then((res) => {
-          console.log(res.data);
-          setOnePage(res.data);
-          setPagination(prevState => ({ ...prevState, page: pageQuery }));
-        });
-    } catch (error) {
-      console.log(error);
-    } 
-  }, [ pageQuery]);
+      .get(`/companies/search${location.search}&limit=${limit}`)
+      .then((res) => {
+        console.log(res);
+        setOnePage(res.data);
+        setPagination((prevState) => ({ ...prevState, page: _page }));
+      });
+    } else {
+      axiosInstance.get(`/companies/search${location.search}`).then((res) => {
+        setOnePage(res.data);
+      });
+    }
+  }, [location.search]);
+  
+    const onChangeOption = (selectedCompany) => {
+      history.push("companies?name=" + selectedCompany.label);
+    };
 
-  const onChangeOption = (selectedCompany) => {
-     setOnePage();
-    console.log(selectedCompany);
-    try {
-      axiosInstance
-        .get(`/companies?name=${selectedCompany.label}`)
-        .then((res) => {
-          console.log(res.data);
-          setOnePage(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    } 
-  };
-
-  const handlePageChange = (newPage) => {
-    // setFilters({
-    //   ...filters,
-    //   page: newPage,
-    // });
-    setPagination({...pagination, page : newPage})
-    history.push('/companies?page='+ newPage)
-  };
-
-  const handleSeclectedCompany = (companyName) => {
-     setSelectedCompany(companyName)
-  };
-
+    const handlePageChange = (newPage) => {
+      setPagination({ ...pagination, page: newPage });
+      history.push("/companies?page=" + newPage);
+    };
+    
+    
   return (
     <Container>
       <Col lg={{ span: 8, offset: 2 }} md={{ span: 12, offset: 0 }}>
@@ -108,34 +83,78 @@ export const Companies = () => {
           options={options}
           placeholder="Company..."
           onChange={onChangeOption}
-          style={{}}
+          value=""
           className="my-5"
-        />
+          />
         <div className="d-flex"></div>
       </Col>
       {!onePage ? (
         <LoadingIndicator />
-      ) : (
-        <div >
+        ) : (
+          <div>
           <Row style={{ height: "max-content", minHeight: "450px" }}>
             {onePage.map((company) => {
               return (
                 <CompanyCard
-                  key={company._id}
-                  id={company._id}
-                  imgUrl={company.imgUrl}
-                  name={company.name}
-                  location={company.location}
-                  field={company.field}
-                  jobs={company.jobs.length}
-                  onSelectedCompany={handleSeclectedCompany}
+                key={company._id}
+                id={company._id}
+                imgUrl={company.imgUrl}
+                name={company.name}
+                location={company.location}
+                field={company.field}
+                jobs={company.jobs.length}
+                // onSelectedCompany={handleSeclectedCompany}
                 />
-              );
-            })}
+                );
+              })}
           </Row>
-          <Pagination  pagination={pagination} onPageChange={handlePageChange} />
+          {parsed.page ? (
+            <Pagination
+            pagination={pagination}
+            onPageChange={handlePageChange}
+            />
+            ) : null}
         </div>
       )}
     </Container>
   );
 };
+
+
+// const { selectedCompany, setSelectedCompany } = useContext(companyContext);
+//const pageQuery = parseInt(location.search.slice(6));
+// console.log(location.search.slice(0,5));
+
+// setOnePage();
+// console.log(selectedCompany);
+// try {
+  //   axiosInstance
+  //     .get(`/companies?name=${selectedCompany.label}`)
+  //     .then((res) => {
+    //       console.log(res.data);
+    //       setOnePage(res.data);
+    //     });
+  // } catch (error) {
+    //   console.log(error);
+    // }
+    
+    //load page theo tung trang
+// useEffect(() => {
+  //   const { limit } = pagination;
+//   setOnePage();
+//   try {
+//     axiosInstance
+//       .get(`/companies?limit=${limit}&page=${pageQuery}`)
+//       .then((res) => {
+//         console.log(res.data);
+//         setOnePage(res.data);
+//         setPagination((prevState) => ({ ...prevState, page: pageQuery }));
+//       });
+//   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [pageQuery]);
+  
+  // const handleSeclectedCompany = (companyName) => {
+  //   setSelectedCompany(companyName);
+  // };
