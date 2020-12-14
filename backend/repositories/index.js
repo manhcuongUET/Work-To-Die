@@ -15,6 +15,7 @@ client.connect().then((connectedClient) => {
   
   // const database2 = connectedClient.db(test_user)
   db.users = database.collection("users");
+  db.employers = database.collection("employers")
 });
 
 module.exports = db;
