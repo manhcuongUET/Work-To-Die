@@ -1,48 +1,11 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LoadingSign } from "../../share/LoadingIndicator";
 import axios from "../../utils/axios";
 import authCtx from "../../context/auth";
 
-export const SignIn = () => {
-  const [values, setValues] = useState({
-    username: "",
-    password: "",
-  });
-  const [err, setErr] = useState("");
-
-  const [loading, setLoading] = useState(false);
-
-  const { authUser, setAuthUser } = useContext(authCtx);
-
-  const handleChanges = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setErr(false);
-    if (!values.username || !values.password) {
-      setErr("Username & password cannot be empty");
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await axios.post("/auth/sign-in", values);
-      const { jwt, user } = res.data;
-      setAuthUser(user);
-      localStorage.setItem("jwt", jwt)  
-    } catch (err) {
-      setErr(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export const SignInEmployers = () => {
   return (
     <Card className="mt-5">
       <Card.Header>SIGN IN</Card.Header>

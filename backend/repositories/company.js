@@ -3,11 +3,11 @@ const db = require("./index");
 exports.getCompanies = async () => {
   const companies = await db.companies
     .aggregate([
-      {
-        $project: {
+      { 
+        $project: {                         
           name: 1,
           _id: 1,
-        },
+        },                                        
       },
     ])
     .toArray();
