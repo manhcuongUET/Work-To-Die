@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 .App {
   text-align: center;
+  font-family: 'Poppins', sans-serif!important;
 }
 
 .App-logo {

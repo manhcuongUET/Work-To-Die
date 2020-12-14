@@ -25,3 +25,9 @@
   height: 107px;
   width: 100%;
 }
+.done {
+  text-align: center;
+}
+.here {
+  cursor: pointer;
+}

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AuthService = require("../services/auth");
+const authMdw = require("../middlewares/auth");
 
 router.post("/sign-up", async (req, res) => {
   const { username, password } = req.body;
@@ -23,6 +24,10 @@ router.post("/sign-in", async (req, res) => {
   } catch (err) {
     res.status(401).send(err.message);
   }
+});
+
+router.post("/me", authMdw, (req, res) => {
+  res.json(req.user.toJson());
 });
 
 module.exports = router;

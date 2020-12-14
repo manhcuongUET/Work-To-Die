@@ -4,10 +4,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./JobsInfo.css"
 import { faBookmark, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router';
 export const JobsInfo = (props) => {
-    const { id ,job, companyName, location, updateTime , img } = props
+    const history= useHistory()
+    const {job, companyName, location, updateTime , img, onSelectedJob, salary } = props
+    const handleSelectedJob=()=>{
+        onSelectedJob({companyName : companyName, job : job})
+        history.push("/JobDetail")
+    }
     return (
-        <div className="frame">
+        <div className="frame" onClick={handleSelectedJob}>
             <div className="info">
                 <img src={img} alt="" className="logo" />
                 <div className="detail">

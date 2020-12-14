@@ -13,7 +13,17 @@ import {
 export const Home = () => {
   return (
     <>
-      <div style={{ textAlign: "center", fontSize:"58px", lineHeight:"1.03", letterSpacing:"-2.1px", padding: "40px 0px"}}>Phát triển đội ngũ tài năng cùng Find Jobs</div>
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "58px",
+          lineHeight: "1.03",
+          letterSpacing: "-2.1px",
+          padding: "40px 0px",
+        }}
+      >
+        Phát triển đội ngũ tài năng cùng Find Jobs
+      </div>
       <div>
         <img
           style={{ width: "100%", height: "500px" }}
@@ -288,7 +298,7 @@ export const Home = () => {
               </span>
             </div>
           </div>
-          <Row style={{marginBottom: "50px"}}>
+          <Row style={{ marginBottom: "50px" }}>
             <div className="col-6">
               <div style={{ textAlign: "center" }}>
                 <img

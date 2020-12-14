@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState , useContext } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./blue.css"
 import axiosInstance from "../../utils/axios"
+import resumeMailContext from "../../context/resumeMail"
+
+
 export const Profile = (props) => {
+    const {resumeMail , setResumeMail} = useContext(resumeMailContext)
 
     console.log(props.email)
 
@@ -19,7 +23,7 @@ export const Profile = (props) => {
 
 
     useEffect(() => {
-        axiosInstance.get(`/profile?email=${props.email}`).then(res => {
+        axiosInstance.get(`/profile?email=${resumeMail}`).then(res => {
             console.log(res.data)
             setData(res.data);
             console.log(data)
