@@ -28,15 +28,17 @@ import { FillUpForm } from "./components/Resume/FillUpForm";
 import { Profile } from "./components/InvidualProfile/Profile";
 import axios from "./utils/axios";
 import { LoadingSign } from "./share/LoadingIndicator";
-import jobContext from "./context/job"
-import resumeMailContext from "./context/resumeMail"
-
+import jobContext from "./context/job";
+import resumeMailContext from "./context/resumeMail";
+import {SeeApply} from "./components/Employers/seeApply"
 
 export const App = () => {
   const history = useHistory();
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
+  const [selectedJob, setSelectedJob] = useState({})
+  const [resumeMail , setResumeMail] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -64,7 +66,7 @@ export const App = () => {
   const handleClick = () => {
     history.push("/HomeEmployers");
   };
-// bat mic a oi
+
   const handleClickSignOut = () => {
     localStorage.clear();
     window.location.href = "/";
@@ -134,17 +136,23 @@ export const App = () => {
                   {" "}
                   <Route path="/auth" component={Auth} />
                   <Route exact path="/" component={Home} />
-                  <Route path="/HomeEmployers" component={HomeEmployers} />
                   <CompanyCtx.Provider
                     value={{ selectedCompany, setSelectedCompany }}
                   >
                     <Route exact path="/companies" component={Companies} />
                     <Route path="/companies/info" component={CompanyInfo} />
                   </CompanyCtx.Provider>
-                  <Route path="/Jobs" component={Jobs} />
-                  <Route path="/JobDetail" component={JobDetail} />
-                  <Route path="/ResumeForm" component={FillUpForm} />
-                  <Route path="/profile" component={Profile} />
+                  <jobContext.Provider value={{ selectedJob, setSelectedJob }}>
+                    <Route path="/Jobs" component={Jobs} />
+                    <Route path="/JobDetail" component={JobDetail} />
+                  </jobContext.Provider>
+                  <resumeMailContext.Provider
+                    value={{ resumeMail, setResumeMail }}
+                  >
+                    <Route path="/ResumeForm" component={FillUpForm} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/see-apply" component={SeeApply} />
+                  </resumeMailContext.Provider>
                 </>
               )}
             </AuthCtx.Provider>
@@ -260,17 +268,24 @@ export const App = () => {
                   {" "}
                   <Route path="/auth" component={Auth} />
                   <Route exact path="/" component={Home} />
-                  <Route path="/HomeEmployers" component={HomeEmployers} />
                   <CompanyCtx.Provider
                     value={{ selectedCompany, setSelectedCompany }}
                   >
                     <Route exact path="/companies" component={Companies} />
                     <Route path="/companies/info" component={CompanyInfo} />
                   </CompanyCtx.Provider>
-                  <Route path="/Jobs" component={Jobs} />
-                  <Route path="/JobDetail" component={JobDetail} />
-                  <Route path="/ResumeForm" component={FillUpForm} />
-                  <Route path="/profile" component={Profile} />
+                  <jobContext.Provider value={{ selectedJob, setSelectedJob }}>
+                    <Route path="/Jobs" component={Jobs} />
+                    <Route path="/JobDetail" component={JobDetail} />
+                  </jobContext.Provider>
+                  <resumeMailContext.Provider
+                    value={{ resumeMail, setResumeMail }}
+                  >
+                    <Route path="/ResumeForm" component={FillUpForm} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/see-apply" component={SeeApply} />
+                  </resumeMailContext.Provider>
+                  <Route path="/auth" component={Auth} />
                 </>
               )}
             </AuthCtx.Provider>
