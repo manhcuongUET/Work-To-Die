@@ -8,12 +8,15 @@ import { JobsInfo } from "./JobsInfo"
 import axiosInstance from "../../utils/axios"
 import jobContext from "../../context/job"
 import { LoadingSign } from '../../share/LoadingIndicator';
-
+import authContext from "../../context/auth"
 
 export const JobDetail = () => {
     const [similar, setSimilar] = useState([])
     const [jobInfo, setJobInfo] = useState()
+    const {authUser , setAuthUser} = useContext(authContext)
 
+
+    console.log(authUser)
     const field = "Computer Software"
 
     const {selectedJob , setSelectedJob} = useContext(jobContext)
@@ -32,10 +35,10 @@ export const JobDetail = () => {
    const renderRequirement = (a) => {
         return a.split("\n")
    }
-   const email  = "aloooo@gmail.com"
+ 
 
    const applyJob = () => {
-        axiosInstance.post(`/apply?email=${email}&companyName=${jobInfo.companyName}&job=${jobInfo.job}`)
+        axiosInstance.post(`/apply?email=${authUser.username}&companyName=${jobInfo.companyName}&job=${jobInfo.job}`)
    }
 
     return (

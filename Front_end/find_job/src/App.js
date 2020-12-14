@@ -33,13 +33,14 @@ import resumeMailContext from "./context/resumeMail";
 import {SeeApply} from "./components/Employers/seeApply"
 
 export const App = () => {
+ 
   const history = useHistory();
   // const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
   const [selectedJob, setSelectedJob] = useState({})
   const [resumeMail , setResumeMail] = useState(null)
-
+  
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
