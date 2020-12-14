@@ -12,7 +12,8 @@ client.connect().then((connectedClient) => {
   const database1 = connectedClient.db("test");
   db.jobs = database.collection("jobs");
   db.profiles = database.collection("profile");
-
+  
+  // const database2 = connectedClient.db(test_user)
   db.users = database.collection("users");
 });
 

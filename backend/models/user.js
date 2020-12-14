@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
-const MY_SECRET_JWT_KEY = "my_secret_jwt_key";
+// const MY_SECRET_JWT_KEY = "my_secret_jwt_key";
 
 // const SECRET_PASSWORD_KEY = "my_secret_password_key";
 
@@ -31,7 +31,7 @@ class User {
     return this.password === hashedPassword;
   }
   generateToken() {
-    return jwt.sign({username: this.username}, MY_SECRET_JWT_KEY, {
+    return jwt.sign({username: this.username}, process.env.JWT_SECRET, {
       expiresIn: 3600,
     });
   }
