@@ -13,10 +13,10 @@ export const Next = (props) => {
         onPageChange(nextPage)
     }
 
-    return (<div><Button disabled = {page >totalPages} 
+    return (<div style = {{position: 'relative'}}><Button style = {{position : 'absolute' , right : 0 , width : 100 , backgroundColor: "rgb(1, 126, 183)" }} disabled = {page >totalPages} 
         onClick ={
             () => {
                 handlePageChange(page+1)
             }
-        } >Next</Button></div>)
+        } >  Next  </Button></div>)
 }

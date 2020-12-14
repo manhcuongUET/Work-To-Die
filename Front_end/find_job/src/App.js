@@ -28,6 +28,9 @@ import { FillUpForm } from "./components/Resume/FillUpForm";
 import { Profile } from "./components/InvidualProfile/Profile";
 import axios from "./utils/axios";
 import { LoadingSign } from "./share/LoadingIndicator";
+import jobContext from "./context/job"
+import resumeMailContext from "./context/resumeMail"
+
 
 export const App = () => {
   const history = useHistory();

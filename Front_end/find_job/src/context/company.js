@@ -5,4 +5,6 @@ const companyContext = createContext({
   setSelectedCompany: () => {},
 });
 
+
+
 export default companyContext;

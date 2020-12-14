@@ -21,8 +21,6 @@ router.get("/selected" , async(req , res) => {
 
 router.get("/jobDetail" , async(req , res) => {
     const job = await jobService.getDetailJobs(req.query.job , req.query.companyName)
-    console.log("deo hieu ")
-    console.log(job)
     res.json(job)
 })
 
