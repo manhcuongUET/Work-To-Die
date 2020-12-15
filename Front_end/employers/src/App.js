@@ -20,6 +20,9 @@ import { Auth } from "./components/auth/index";
 import axios from "./utils/axios";
 import authContext from "./components/context/auth";
 import { LoadingSign } from "./share/LoadingIndicator";
+import { Profile } from "./components/Employers/Profile"
+import mailContext from "./components/context/mail"
+import { ApplyTag } from "./components/Employers/applyTag";
 
 function App() {
   const history = useHistory();
@@ -50,7 +53,7 @@ function App() {
     }
   }, []);
 
-  const handleClick = () => {};
+  const handleClick = () => { };
 
   const handleClickSignOut = () => {
     localStorage.clear();
@@ -113,12 +116,14 @@ function App() {
         {signingIn ? (
           <LoadingSign text="Loading ../" />
         ) : (
-          <>
-            <Route path="/apply-job" component={SeeApply} />
-            <Route path="/upload-job" component={UpLoadNewJob} />
-            <Route path="/" component={Auth} />
-          </>
-        )}
+            <>
+              <Route path="/apply-job" component={SeeApply} />
+              <Route path="/upload-job" component={UpLoadNewJob} />
+              <Route path="/" component={Auth} />
+              <Route path="/profile" component={Profile} />
+              <Route path = "/apply-tag" component = {ApplyTag}/>
+            </>
+          )}
       </authContext.Provider>
 
       <div id="footer" className="p-5">

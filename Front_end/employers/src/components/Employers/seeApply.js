@@ -1,13 +1,15 @@
-import React , {useEffect, useState} from 'react'
+import React , {useContext, useEffect, useState} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import axiosInstance from "../../utils/axios"
 import { LoadingSign } from "../../share/LoadingIndicator"
 import { ApplyTag } from "./applyTag"
-
+import authContext from "../context/auth"
 
 export const SeeApply = () => {
 
-    const companyName = "Creatory Vietnam"
+    const {authUser,setAuthUser} = useContext(authContext)
+    console.log(authUser)
+    const companyName = authUser? authUser.companyName : ""
     const [listEmail , setListEmail] = useState([])
     
     const getData = () => {
