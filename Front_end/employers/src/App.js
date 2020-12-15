@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import {
   Nav,
   Navbar,
@@ -15,10 +16,45 @@ import { faArrowRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SeeApply } from "./components/Employers/seeApply";
 import { UpLoadNewJob } from "./components/Employers/UpLoadNewJob";
-import {Auth} from "./components/auth/index"
+import { Auth } from "./components/auth/index";
+import axios from "./utils/axios";
+import authContext from "./components/context/auth";
+import { LoadingSign } from "./share/LoadingIndicator";
 
 function App() {
+  const history = useHistory();
+  // const [selectedCompany, setSelectedCompany] = useState(null);
+  const [authUser, setAuthUser] = useState(null);
+  const [signingIn, setSigningIn] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      setSigningIn(false);
+      return;
+    }
+    try {
+      axios
+        .post("/auth/me", null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setAuthUser(res.data);
+          axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+          setSigningIn(false);
+        });
+    } catch (err) {
+      setSigningIn(false);
+    }
+  }, []);
+
   const handleClick = () => {};
+
+  const handleClickSignOut = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
   return (
     <div className="App">
       <Navbar
@@ -48,31 +84,43 @@ function App() {
                 Candidate Job Applications
               </Nav.Link>
             </Nav>
-            <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/employers/sign-up" className="mx-1">
-                SIGN UP
-              </Nav.Link>
-              <Nav.Link as={Link} to="/employers/sign-in" className="mx-1">
-                SIGN IN
-              </Nav.Link>
-            </Nav>
-            <Nav>
-              <Button onClick={handleClick}>
-                FOR EMPLOYERS
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  style={{ marginLeft: "10px" }}
-                />
-              </Button>
-            </Nav>
+            {!authUser ? (
+              <Nav className="ml-auto">
+                <Nav.Link as={Link} to="/employers/sign-up" className="mx-1">
+                  SIGN UP
+                </Nav.Link>
+                <Nav.Link as={Link} to="/employers/sign-in" className="mx-1">
+                  SIGN IN
+                </Nav.Link>
+              </Nav>
+            ) : (
+              <Nav className="ml-auto">
+                <NavDropdown title={authUser.email} id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">
+                    MY PROFILE
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">
+                    <FontAwesomeIcon icon={faPowerOff} />
+                    <Nav.Link onClick={handleClickSignOut}>SIGN OUT</Nav.Link>
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            )}
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <>
-        <Route path="/apply-job" component={SeeApply} />
-        <Route path="/upload-job" component={UpLoadNewJob} />
-        <Route path="/employers" component={Auth} />
-      </>
+      <authContext.Provider value={{ authUser, setAuthUser }}>
+        {signingIn ? (
+          <LoadingSign text="Loading ../" />
+        ) : (
+          <>
+            <Route path="/apply-job" component={SeeApply} />
+            <Route path="/upload-job" component={UpLoadNewJob} />
+            <Route path="/employers" component={Auth} />
+          </>
+        )}
+      </authContext.Provider>
     </div>
   );
 }
