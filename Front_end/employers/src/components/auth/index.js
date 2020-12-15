@@ -11,7 +11,7 @@ export const Auth = () => {
 
   useEffect(()=>{
     if(authUser){
-      history.push("/")
+      history.push("/upload-job")
     }
   },[authUser, history])
 
@@ -22,8 +22,8 @@ export const Auth = () => {
         lg={{ span: 6, offset: 3 }}
         xl={{ span: 4, offset: 4 }}
       >
-        <Route path="/employers/sign-up" component={SignUp} />
-        <Route path="/employers/sign-in" component={SignIn} />
+        <Route  path="/sign-up" component={SignUp} />
+        <Route exact path="/" component={SignIn} />
       </Col>
     </Row>
   );

@@ -4,9 +4,17 @@ import "../../css/companyInfo.css";
 import axiosInstance from "../../utils/axios";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
 import authContext from "../context/auth"
+import { useHistory } from "react-router-dom";
 
 export const UpLoadNewJob = () => {
+  const history = useHistory()
   const {authUser, setAuthUser} = useContext(authContext)
+  console.log(authUser);
+  useEffect(()=>{
+    if(!authUser){
+      history.push("/")
+    }
+  },[])
   const convertDate = (inputFormat) => {
     function pad(s) {
       return s < 10 ? "0" + s : s;
@@ -14,10 +22,11 @@ export const UpLoadNewJob = () => {
     var d = new Date(inputFormat);
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join("/");
   };
-console.log(authUser.companyName);
-  const _companyName = authUser.companyName;
+
+  
+ 
   const [values, setValues] = useState({
-    companyName: _companyName,
+    companyName: authUser ? authUser.companyName : "",
     job: "",
     type: "",
     field: "",
@@ -31,7 +40,7 @@ console.log(authUser.companyName);
   const [info, setInfo] = useState();
 
   useEffect(() => {
-    axiosInstance.get(`/companies/info?name=${_companyName}`).then((res) => {
+    axiosInstance.get(`/companies/info?name=${authUser ? authUser.companyName : ""}`).then((res) => {
       console.log(res);
       setInfo(res.data[0]);
     });
@@ -48,7 +57,7 @@ console.log(authUser.companyName);
     setSuccess(false);
     event.preventDefault();
     const newJob = {
-      companyName: _companyName,
+      companyName: authUser.companyName,
       job: values.job,
       type: values.type,
       field: values.field,
@@ -61,7 +70,7 @@ console.log(authUser.companyName);
     axiosInstance.post("/employers/new-job", newJob).then((res) => {
       console.log(res);
       setValues({
-        companyName: _companyName,
+        companyName: authUser.companyName,
         job: "",
         type: "",
         field: "",
@@ -75,6 +84,8 @@ console.log(authUser.companyName);
   };
 
   return (
+    <div>
+    {authUser ? 
     <Container>
       <Row className="mt-3" style={{ textAlign: "left" }}>
         <div className="col-8">
@@ -176,5 +187,7 @@ console.log(authUser.companyName);
         </div>
       </Row>
     </Container>
+    : <div></div>}
+    </div>
   );
 };
