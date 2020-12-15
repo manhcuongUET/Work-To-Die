@@ -1,25 +1,25 @@
-.footer{
+#footer{
     background-color: black;
-    border: 1px solid white;
-    height: 400px;
-    padding-top: 30px;
+    /* border: 1px solid white; */
+    /* padding: 30px; */
     /* margin-top: 50px; */
 }
-.aside-left {
+/* .aside-left {
     width: 350px;
     height: 350px;
-    /* border: 1px solid white; */
     margin-right: 100px;
-}
-.aside-left img{
+} */
+
+/* .aside-left img{
     width: 126px;
     height: 126px;
-}
-.aside-left .para-left{
+} */
+
+/* .footer .para-left{
     color: #ffffff;
     font-size: 12px;
     margin-top:30px;
-}
+} */
 .aside-left p{
     font-size: 12px;
     margin: none;
@@ -43,7 +43,17 @@
     font-weight: 500;
 }
 .each-col{
-    padding-top: 100px;
+    padding-top: 50px;
     width: 200px;
 
 }
+
+.brand-icon{
+    padding: 10px
+}
+
+@media only screen and (max-width: 768px) {
+    #footer {
+        display: none;
+    }
+  }
