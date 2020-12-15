@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import {
   Nav,
@@ -16,6 +15,7 @@ import { faArrowRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SeeApply } from "./components/Employers/seeApply";
 import { UpLoadNewJob } from "./components/Employers/UpLoadNewJob";
+import {Auth} from "./components/auth/index"
 
 function App() {
   const handleClick = () => {};
@@ -49,10 +49,10 @@ function App() {
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
-              <Nav.Link as={Link} to="/auth/sign-up" className="mx-1">
+              <Nav.Link as={Link} to="/employers/sign-up" className="mx-1">
                 SIGN UP
               </Nav.Link>
-              <Nav.Link as={Link} to="/auth/sign-in" className="mx-1">
+              <Nav.Link as={Link} to="/employers/sign-in" className="mx-1">
                 SIGN IN
               </Nav.Link>
             </Nav>
@@ -71,6 +71,7 @@ function App() {
       <>
         <Route path="/apply-job" component={SeeApply} />
         <Route path="/upload-job" component={UpLoadNewJob} />
+        <Route path="/employers" component={Auth} />
       </>
     </div>
   );
