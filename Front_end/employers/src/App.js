@@ -26,7 +26,7 @@ function App() {
   // const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
-  
+
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
@@ -97,17 +97,15 @@ function App() {
             ) : (
               <Nav className="ml-auto">
                 <NavDropdown title={authUser.email} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">
-                    MY PROFILE
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
+                  <NavDropdown.Item href="/">MY PROFILE</NavDropdown.Item>
+                  
+                  <NavDropdown.Item className="d-flex align-items-center">
                     <FontAwesomeIcon icon={faPowerOff} />
                     <Nav.Link onClick={handleClickSignOut}>SIGN OUT</Nav.Link>
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             )}
-            
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -124,59 +122,58 @@ function App() {
       </authContext.Provider>
 
       <div id="footer" className="p-5">
-          <Row>
-            <div className="d-flex" style={{ height: "max-content" }}>
-              <Col xs={4} className="aside-left">
-                <img src={"/image/company-1.png"} />
-                <p className="para-left">
-                  Find Jobs is the #1 recruitment platform in Asia helping
-                  companies build successful teams with young talent. Our
-                  mission is to help companies hire the right young talent
-                  effectively, and for young people to discover and develop
-                  careers they love.
-                </p>
-                <p>
-                  © 2020 Find Jobs Intern Pte Ltd & Find Jobs Vietnam Pte Ltd
-                  <br></br>
-                  EA Licence No: 16C7981
-                </p>
-              </Col>
+        <Row>
+          <div className="d-flex" style={{ height: "max-content" }}>
+            <Col xs={4} className="aside-left">
+              <img src={"/image/company-1.png"} />
+              <p className="para-left">
+                Find Jobs is the #1 recruitment platform in Asia helping
+                companies build successful teams with young talent. Our mission
+                is to help companies hire the right young talent effectively,
+                and for young people to discover and develop careers they love.
+              </p>
+              <p>
+                © 2020 Find Jobs Intern Pte Ltd & Find Jobs Vietnam Pte Ltd
+                <br></br>
+                EA Licence No: 16C7981
+              </p>
+            </Col>
 
-              <Col className="ml-auto" xs={6}>
-                {/* <div className="mx-auto" style={{color:"white"}}>
+            <Col className="ml-auto" xs={6}>
+              {/* <div className="mx-auto" style={{color:"white"}}>
                   <FontAwesomeIcon icon={faInstagramSquare} size="2x" />
                   <FontAwesomeIcon icon={faTwitter} size="2x" />
                   <FontAwesomeIcon icon={faFacebook} size="2x" />
                   <FontAwesomeIcon icon={faLinkedin} size="2x" />
                   <FontAwesomeIcon icon={faEnvelope} size="2x" />
                 </div> */}
-                <div className="d-flex">
-                  <div className=" each-col px-0">
-                    <div className="title-right">Company</div>
-                    <div className="detail-right">About us</div>
-                    <div className="detail-right">Hired Blog</div>
-                    <div className="detail-right">Inside FInd Jobs</div>
-                    <div className="detail-right">Careeers</div>
-                    <div className="detail-right">Terms&Conditions</div>
-                  </div>
-                  <div className="each-col px-0">
-                    <div className="title-right">FOR JOB SEEKERS</div>
-                    <div className="detail-right">Jobs by Location</div>
-                    <div className="detail-right">Jobs by Company Name</div>
-                    <div className="detail-right">Jobs by Category</div>
-                  </div>
-                  <div className="each-col px-0">
-                    <div className="title-right">BUSINESS SOLUTIONS</div>
-                    <div className="detail-right">For Employers</div>
-                    <div className="detail-right">Find Jobs Platform</div>
-                    <div className="detail-right">TalentHunt</div>
-                    <div className="detail-right">TalentHub</div>
-                  </div>
+              <div className="d-flex">
+                <div className=" each-col px-0">
+                  <div className="title-right">Company</div>
+                  <div className="detail-right">About us</div>
+                  <div className="detail-right">Hired Blog</div>
+                  <div className="detail-right">Inside FInd Jobs</div>
+                  <div className="detail-right">Careeers</div>
+                  <div className="detail-right">Terms&Conditions</div>
                 </div>
-              </Col>
-            </div>
-          </Row>
-        </div>
+                <div className="each-col px-0">
+                  <div className="title-right">FOR JOB SEEKERS</div>
+                  <div className="detail-right">Jobs by Location</div>
+                  <div className="detail-right">Jobs by Company Name</div>
+                  <div className="detail-right">Jobs by Category</div>
+                </div>
+                <div className="each-col px-0">
+                  <div className="title-right">BUSINESS SOLUTIONS</div>
+                  <div className="detail-right">For Employers</div>
+                  <div className="detail-right">Find Jobs Platform</div>
+                  <div className="detail-right">TalentHunt</div>
+                  <div className="detail-right">TalentHub</div>
+                </div>
+              </div>
+            </Col>
+          </div>
+        </Row>
+      </div>
     </div>
   );
 }

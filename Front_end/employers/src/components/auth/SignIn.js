@@ -85,7 +85,7 @@ export const SignIn = () => {
                 </Button>
                 <p className="mt-2 small text-center">
                   Don't have account?{" "}
-                  <Link to="/employers/sign-up">Sign up</Link> now
+                  <Link to="/sign-up">Sign up</Link> now
                 </p>
               </Form>
             </>

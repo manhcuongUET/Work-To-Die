@@ -73,7 +73,7 @@ export const App = () => {
   }, []);
 
   const handleClick = () => {
-    history.push("/HomeEmployers");
+    history.push("/");
   };
 
   const handleClickSignOut = () => {
@@ -125,23 +125,25 @@ export const App = () => {
                     SIGN IN
                   </Nav.Link>
                 </Nav>
-                <Nav className="px-3">
-                  <Button onClick={handleClick}>
-                    FOR EMPLOYERS
-                    <FontAwesomeIcon icon={faArrowRight} />
+                <Nav className="px-3 align-items-center">
+                  <Button onClick={handleClick} style={{fontSize: "15px" ,height:"30px"}}>
+                    <a href="https://employer-findjobs.web.app/">FOR EMPLOYERS</a>
+                    <FontAwesomeIcon icon={faArrowRight} className="ml-2"/>
                   </Button>
                 </Nav>
               </Nav>
             ) : (
-              <Nav className="ml-auto">
+              <Nav className="mr-5 ">
                 <NavDropdown title={authUser.username} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">
+                  <NavDropdown.Item href="/">
                     MY PROFILE
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
+
+                  <NavDropdown.Item  className="d-flex align-items-center">
                     <FontAwesomeIcon icon={faPowerOff} />
                     <Nav.Link onClick={handleClickSignOut}>SIGN OUT</Nav.Link>
                   </NavDropdown.Item>
+
                 </NavDropdown>
               </Nav>
             )}

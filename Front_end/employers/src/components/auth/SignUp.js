@@ -173,7 +173,7 @@ export const SignUp = () => {
                 </Button>
                 <p className="mt-2 small text-center">
                   Already have an account?{" "}
-                  <Link to="/employers/sign-in">Sign in </Link>now
+                  <Link to="/">Sign in </Link>now
                 </p>
               </Form>
             </>
