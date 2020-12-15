@@ -87,7 +87,7 @@ export const App = () => {
             <Container>
               <Navbar.Brand as={Link} to="/">
                 <img
-                  src="/find_jobs.png"
+                  src="/Untitled-1.png"
                   width="200"
                   height="50"
                   className="d-inline-block align-top"
@@ -213,7 +213,7 @@ export const App = () => {
             <Container>
               <Navbar.Brand as={Link} to="/">
                 <img
-                  src="/find_jobs.png"
+                  src="/Untitled-1.png"
                   width="200"
                   height="50"
                   className="d-inline-block align-top"

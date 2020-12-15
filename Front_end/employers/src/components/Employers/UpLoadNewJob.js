@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Form, Row } from "react-bootstrap";
 import "../../css/companyInfo.css";
 import axiosInstance from "../../utils/axios";
 import { LoadingIndicator } from "../../share/LoadingIndicator";
+import authContext from "../context/auth"
 
 export const UpLoadNewJob = () => {
+  const {authUser, setAuthUser} = useContext(authContext)
   const convertDate = (inputFormat) => {
     function pad(s) {
       return s < 10 ? "0" + s : s;
@@ -12,8 +14,8 @@ export const UpLoadNewJob = () => {
     var d = new Date(inputFormat);
     return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join("/");
   };
-
-  const _companyName = "Creatory Vietnam";
+console.log(authUser.companyName);
+  const _companyName = authUser.companyName;
   const [values, setValues] = useState({
     companyName: _companyName,
     job: "",
