@@ -8,7 +8,7 @@ module.exports.uploadNewJob = async (data) => {
 };
 
 module.exports.signInEm = async (email, password) => {
-  const userEm = await EmployersRepo.findUserByEmail(email);
+  const userEm = await EmployersRepo.findUserByEmail(email);  
   if (!userEm) {
     throw new Error("Email not existed !");
   }
