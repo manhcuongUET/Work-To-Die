@@ -26,6 +26,7 @@ function App() {
   // const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
+  console.log(authUser);
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
