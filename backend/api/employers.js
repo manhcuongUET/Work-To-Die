@@ -11,9 +11,11 @@ router.post("/new-job" , async(req , res) => {
 })
 
 router.post("/sign-up", async (req, res) => {
-    const { email, password  } = req.body;
+    // const { email, password  } = req.body;
+    const data = req.body
     try {
-      const userEm = await employersService.signUpEm(email, password);
+      // const userEm = await employersService.signUpEm(email, password);
+      const userEm = await employersService.signUpEm(data);
       res.json(userEm.toJson());
       console.log(userEm);
     } catch (err) {

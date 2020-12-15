@@ -31,7 +31,7 @@ function App() {
         <Container>
           <Navbar.Brand>
             <img
-              src="/find_jobs.png"
+              src="/Untitled-1.png"
               width="200"
               height="50"
               className="d-inline-block align-top"

@@ -19,12 +19,14 @@ module.exports.signInEm = async (email, password) => {
   return { jwt, user };
 };
 
-module.exports.signUpEm = async (email, password) => {
+// module.exports.signUpEm = async (email, password) => {
+module.exports.signUpEm = async (data) => {
+  const {email, password, companyName, field, location, website, overview} = data;
   const user = await EmployersRepo.findUserByEmail(email);
   if (user) {
     throw new Error("email existed!");
   }
-  const newUserEmployer = new Employer(email);
+  const newUserEmployer = new Employer(email,"", companyName, field, location, website, overview);
   newUserEmployer.generagePassword(password);
   const savedEm = await EmployersRepo.createUserEmployers(newUserEmployer);
   return savedEm;
