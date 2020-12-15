@@ -26,6 +26,7 @@ function App() {
   // const [selectedCompany, setSelectedCompany] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [signingIn, setSigningIn] = useState(true);
+  
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
@@ -86,10 +87,10 @@ function App() {
             </Nav>
             {!authUser ? (
               <Nav className="ml-auto">
-                <Nav.Link as={Link} to="/employers/sign-up" className="mx-1">
+                <Nav.Link exact as={Link} to="/sign-up" className="mx-1">
                   SIGN UP
                 </Nav.Link>
-                <Nav.Link as={Link} to="/employers/sign-in" className="mx-1">
+                <Nav.Link as={Link} to="/" className="mx-1">
                   SIGN IN
                 </Nav.Link>
               </Nav>
@@ -117,7 +118,7 @@ function App() {
           <>
             <Route path="/apply-job" component={SeeApply} />
             <Route path="/upload-job" component={UpLoadNewJob} />
-            <Route path="/employers" component={Auth} />
+            <Route path="/" component={Auth} />
           </>
         )}
       </authContext.Provider>

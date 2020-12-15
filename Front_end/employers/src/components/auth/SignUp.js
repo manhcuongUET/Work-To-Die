@@ -47,6 +47,15 @@ export const SignUp = () => {
     try {
       await axiosInstance.post("/employers/sign-up", values);
       setIsSuccessced(true);
+      axiosInstance.post("/employers/new-company", {
+        name: values.companyName,
+        field: values.field,
+        location: values.location,
+        website: values.website,
+        overview: values.overview,
+        imgUrl: "",
+        emailApply: [],
+      });
     } catch (err) {
       setErr(err.message);
     } finally {

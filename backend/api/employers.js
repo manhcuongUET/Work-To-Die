@@ -5,7 +5,7 @@ const emMdw = require("../middlewares/employer");
 
 router.post("/sign-up", async (req, res) => {
   // const { email, password } = req.body;
-  const data = req.body
+  const data = req.body;
   try {
     const userEm = await employersService.signUpEm(data);
     res.json(userEm.toJson());
@@ -39,3 +39,8 @@ router.post("/new-job", async (req, res) => {
 });
 
 module.exports = router;
+
+router.post("/new-company", async (req, res) => {
+  const newCompany = await employersService.uploadNewCompany(req.body);
+  res.json("success");
+});

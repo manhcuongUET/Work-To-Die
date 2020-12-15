@@ -8,14 +8,16 @@ exports.findUserByEmail = async (email) => {
   }
   const userEm = new Employer(
     rawUserEm.email,
+    "",
     rawUserEm.companyName,
-    rawUserEm.location,
     rawUserEm.field,
+    rawUserEm.location,
     rawUserEm.website,
     rawUserEm.overview
   );
   userEm.password = rawUserEm.password;
   userEm.salt = rawUserEm.salt;
+  console.log(userEm);
   return userEm;
 };
 
@@ -46,5 +48,10 @@ exports.createUserEmployers = async (employer) => {
 exports.uploadNewJob = async (data) => {
   const newJob = await db.jobs.insertOne(data);
   return newJob;
+};
+
+exports.uploadNewCompany = async (data) => {
+  const newCompany = await db.companies.insertOne(data);
+  return newCompany;
 };
 

@@ -30,3 +30,8 @@ module.exports.signUpEm = async (data) => {
   const savedEm = await EmployersRepo.createUserEmployers(newUserEmployer);
   return savedEm;
 };
+
+module.exports.uploadNewCompany = async (data) => {
+  const newCompany = await EmployersRepo.uploadNewCompany(data);
+  return newCompany;
+};
