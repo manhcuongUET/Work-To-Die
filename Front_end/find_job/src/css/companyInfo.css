@@ -5,12 +5,13 @@
     margin-top: 50px;
     margin-bottom: 30px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 4px 0px;
+    position: relative;
 }
 .info-container .top{
     border-bottom: 1px solid rgb(221, 221, 221);
     height: 200px;
     display: flex;
-    padding-bottom: 20px
+    padding-bottom: 20px;
 }
 .info-container .top img{
     height:180px;
@@ -64,4 +65,17 @@
     font-size: 14px;
     padding: 10px 0px 30px 0px;
 
+}
+.view-job-btn{
+    display: flex;
+    justify-content: center;
+    background: rgb(255, 242, 64);
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 40px;
+    line-height: 1.5;
+    align-items: center;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
 }

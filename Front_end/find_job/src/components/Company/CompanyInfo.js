@@ -57,7 +57,9 @@ export const CompanyInfo = () => {
                 </Row>
               </div>
             </div>
-            <div></div>
+            <div>
+              <button className="view-job-btn">VIEW JOBS</button>
+            </div>
           </div>
           <div style={{ height: "max-contet" }}>
             <Row style={{ height: "max-contet" }}>
