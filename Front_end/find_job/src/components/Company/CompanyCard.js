@@ -22,7 +22,7 @@ export const CompanyCard = (props) => {
     <Col lg={4} md={6} className="my-2 px-2">
       <div className="px-3 py-3 cpn-container" onClick={handleSeclectedCompany}>
         <div className="d-flex" style={{ height: "80px" }}>
-          <img src={imgUrl} className="imgUrl" />
+        {imgUrl == "" ? <img src={"../logo/default-company-logo.png"} className="imgUrl" /> : <img src={imgUrl} className="imgUrl" />}        
           <div className="flex-grow-1 pl-2">
             <div className="d-flex">
               <div className="name">{name}</div>

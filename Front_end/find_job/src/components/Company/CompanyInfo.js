@@ -33,7 +33,7 @@ export const CompanyInfo = () => {
         <>
           <div className="info-container">
             <div className="top">
-              <img src={`.${info.imgUrl}`} />
+              {info.imgUrl == "" ?  <img src={"../logo/default-company-logo.png"}/>: <img src={`.${info.imgUrl}`} />}
               <div className="description">
                 <div className="name">{info.name}</div>
                 <Row className="d-flex" style={{ height: "100px" }}>
