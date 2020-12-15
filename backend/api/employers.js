@@ -4,9 +4,10 @@ const employersService = require("../services/employers");
 const emMdw = require("../middlewares/employer");
 
 router.post("/sign-up", async (req, res) => {
-  const { email, password } = req.body;
+  // const { email, password } = req.body;
+  const data = req.body;
   try {
-    const userEm = await employersService.signUpEm(email, password);
+    const userEm = await employersService.signUpEm(data);
     res.json(userEm.toJson());
   } catch (err) {
     res.status(400).send(err.message);
@@ -38,3 +39,8 @@ router.post("/new-job", async (req, res) => {
 });
 
 module.exports = router;
+
+router.post("/new-company", async (req, res) => {
+  const newCompany = await employersService.uploadNewCompany(req.body);
+  res.json("success");
+});
