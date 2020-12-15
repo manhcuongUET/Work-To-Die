@@ -20,6 +20,9 @@ import { Auth } from "./components/auth/index";
 import axios from "./utils/axios";
 import authContext from "./components/context/auth";
 import { LoadingSign } from "./share/LoadingIndicator";
+import { Profile } from "./components/Employers/Profile"
+import mailContext from "./components/context/mail"
+import { ApplyTag } from "./components/Employers/applyTag";
 
 function App() {
   const history = useHistory();
@@ -50,7 +53,7 @@ function App() {
     }
   }, []);
 
-  const handleClick = () => {};
+  const handleClick = () => { };
 
   const handleClickSignOut = () => {
     localStorage.clear();
@@ -95,19 +98,19 @@ function App() {
                 </Nav.Link>
               </Nav>
             ) : (
-              <Nav className="ml-auto">
-                <NavDropdown title={authUser.email} id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">
-                    MY PROFILE
+                <Nav className="ml-auto">
+                  <NavDropdown title={authUser.email} id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">
+                      MY PROFILE
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    <FontAwesomeIcon icon={faPowerOff} />
-                    <Nav.Link onClick={handleClickSignOut}>SIGN OUT</Nav.Link>
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-            )}
-            
+                    <NavDropdown.Item href="#action/3.3">
+                      <FontAwesomeIcon icon={faPowerOff} />
+                      <Nav.Link onClick={handleClickSignOut}>SIGN OUT</Nav.Link>
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+              )}
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -115,12 +118,14 @@ function App() {
         {signingIn ? (
           <LoadingSign text="Loading ../" />
         ) : (
-          <>
-            <Route path="/apply-job" component={SeeApply} />
-            <Route path="/upload-job" component={UpLoadNewJob} />
-            <Route path="/employers" component={Auth} />
-          </>
-        )}
+            <>
+              <Route path="/apply-job" component={SeeApply} />
+              <Route path="/upload-job" component={UpLoadNewJob} />
+              <Route path="/employers" component={Auth} />
+              <Route path="/profile" component={Profile} />
+              <Route path = "/apply-tag" component = {ApplyTag}/>
+            </>
+          )}
       </authContext.Provider>
     </div>
   );

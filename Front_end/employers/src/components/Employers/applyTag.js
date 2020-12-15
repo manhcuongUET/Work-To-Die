@@ -1,16 +1,18 @@
 import React , {useContext} from 'react'
 import { Route, useHistory } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css";
-// import resumeMailContext from "../../context/resumeMail"
+import authContext from "../context/auth"
 
 
 export const ApplyTag = (props) => {
     // const { resumeMail, setResumeMail } = useContext(resumeMailContext)
+    const {authUser,setAuthUser} = useContext(authContext)
     const {email , job} = props
     const history = useHistory()
 
     const gotoProfile = () => {
         // setResumeMail(email)
+        authUser.emailApply = email
         history.push("/profile")
     }
 
