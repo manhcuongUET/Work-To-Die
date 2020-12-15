@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LoadingSign } from "../../share/LoadingIndicator";
-import axios from "../../utils/axios";
+import axiosInstance from "../../utils/axios";
 
 export const SignUp = () => {
   const [values, setValues] = useState({
@@ -45,8 +45,7 @@ export const SignUp = () => {
     }
     setLoading(true);
     try {
-      await axios.post("/employers/sign-up", values);
-      
+      await axiosInstance.post("/employers/sign-up", values);
       setIsSuccessced(true);
     } catch (err) {
       setErr(err.message);

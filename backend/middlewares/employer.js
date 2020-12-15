@@ -14,11 +14,11 @@ const emMdw = (req, res, next) => {
       if (err) {
         res.status(401).send("Invalid token");
       } else {
-        const user = await EmployersRepo.findUserByEmail(data.email);
-        if (!user) {
+        const userEm = await EmployersRepo.findUserByEmail(data.email);
+        if (!userEm) {
           res.status(401).send("User not found");
         } else {
-          req.user = user;
+          req.userEm = userEm;
           next();
         }
       }

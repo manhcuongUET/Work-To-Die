@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { LoadingSign } from "../../share/LoadingIndicator";
-import axios from "../../utils/axios";
+import axiosInstance from "../../utils/axios";
 import authCtx from "../context/auth";
 
 
@@ -33,11 +33,12 @@ export const SignIn = () => {
     }
     setLoading(true);
     try {
-      const res = await axios.post("/employers/sign-in", values);
+      const res = await axiosInstance.post("/employers/sign-in", values);
       const { jwt, userEm } = res.data;
-      
+
       setAuthUser(userEm);
       localStorage.setItem("jwt", jwt)  
+
     } catch (err) {
       setErr(err.message);
     } finally {
